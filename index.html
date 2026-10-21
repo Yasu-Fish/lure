@@ -1,1 +1,359 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lure Information - AMY & LUKIA</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      background-color: #0b0c10;
+      color: #f0f0f0;
+      overflow-x: hidden;
+    }
+    /* ヘッダー */
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 60px;
+      background: rgba(11, 12, 16, 0.85);
+      backdrop-filter: blur(10px);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 20px;
+      z-index: 1000;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    .brand-title {
+      font-size: 1.1rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+      background: linear-gradient(135deg, #a855f7, #22d3ee);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    /* 切り替えタブ */
+    .tab-switcher {
+      display: flex;
+      background: rgba(255, 255, 255, 0.1);
+      padding: 4px;
+      border-radius: 20px;
+    }
+    .tab-btn {
+      border: none;
+      background: transparent;
+      color: #aaa;
+      padding: 6px 16px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      border-radius: 16px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    .tab-btn.active {
+      color: #fff;
+      background: linear-gradient(135deg, #7e22ce, #3b82f6);
+      box-shadow: 0 2px 10px rgba(126, 34, 206, 0.5);
+    }
 
+    /* ヒーローポスター（全画面） */
+    .hero-container {
+      position: relative;
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      transition: opacity 0.5s ease;
+    }
+
+    /* スクロール誘導アイコン */
+    .scroll-indicator {
+      position: absolute;
+      bottom: 25px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      color: rgba(255, 255, 255, 0.8);
+      font-size: 0.75rem;
+      letter-spacing: 1px;
+      animation: bounce 2s infinite;
+      z-index: 10;
+      text-transform: uppercase;
+    }
+    .scroll-indicator svg {
+      width: 20px;
+      height: 20px;
+      fill: currentColor;
+    }
+    @keyframes bounce {
+      0%, 20%, 50%, 80%, 100% { transform: translate(-50%, 0); }
+      40% { transform: translate(-50%, -10px); }
+      60% { transform: translate(-50%, -5px); }
+    }
+
+    /* コンテンツエリア */
+    .container {
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 40px 20px 80px;
+    }
+    .section-title {
+      font-size: 1.4rem;
+      text-align: center;
+      margin-bottom: 24px;
+      letter-spacing: 2px;
+      position: relative;
+    }
+    .section-title::after {
+      content: '';
+      display: block;
+      width: 40px;
+      height: 2px;
+      background: #a855f7;
+      margin: 8px auto 0;
+      border-radius: 2px;
+    }
+
+    /* スペック表 */
+    .spec-card {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 16px;
+      padding: 20px;
+      margin-bottom: 40px;
+      backdrop-filter: blur(5px);
+    }
+    .spec-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 12px 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      font-size: 0.95rem;
+    }
+    .spec-row:last-child {
+      border-bottom: none;
+    }
+    .spec-label {
+      color: #888;
+    }
+    .spec-value {
+      font-weight: 600;
+      color: #fff;
+    }
+
+    /* カラーバリエーション */
+    .color-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+      margin-bottom: 40px;
+    }
+    .color-card {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 12px;
+      padding: 16px;
+      text-align: center;
+    }
+    .color-swatch {
+      width: 100%;
+      height: 80px;
+      border-radius: 8px;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.8rem;
+      color: rgba(255,255,255,0.7);
+    }
+    .color-name {
+      font-size: 0.85rem;
+      font-weight: 600;
+    }
+
+    /* フッター */
+    footer {
+      text-align: center;
+      padding: 20px;
+      font-size: 0.75rem;
+      color: #555;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ヘッダー -->
+  <header>
+    <div class="brand-title">Lure Information</div>
+    <div class="tab-switcher">
+      <button class="tab-btn active" onclick="switchBrand('amy')">AMY</button>
+      <button class="tab-btn" onclick="switchBrand('lukia')">LUKIA</button>
+    </div>
+  </header>
+
+  <!-- 全画面ポスターヒーロー -->
+  <div class="hero-container">
+    <!-- 画像ファイルが存在する場合は画像を表示、無い場合はグラフィックで代替表示 -->
+    <img id="hero-img" class="hero-bg" src="AMY_3.jpg" alt="Lure Poster" onerror="this.style.display='none'; document.getElementById('hero-fallback').style.display='flex';">
+    
+    <div id="hero-fallback" class="hero-bg" style="display:none; flex-direction:column; justify-content:center; align-items:center; background: radial-gradient(circle, #2e1065 0%, #0b0c10 100%); text-align:center; padding:20px;">
+      <h1 id="fallback-title" style="font-size: 3rem; letter-spacing:4px; margin-bottom:10px; background: linear-gradient(135deg, #e9d5ff, #a855f7); -webkit-background-clip:text; -webkit-text-fill-color:transparent;">AMY</h1>
+      <p id="fallback-catch" style="font-size: 1rem; color:#d8b4fe;">ナチュラルな微弱波動でターゲットを狙い打つエイミー</p>
+    </div>
+
+    <div class="scroll-indicator">
+      <span>SCROLL FOR DETAILS</span>
+      <svg viewBox="0 0 24 24"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6z"/></svg>
+    </div>
+  </div>
+
+  <!-- コンテンツ詳細 -->
+  <div class="container">
+    
+    <!-- スペック紹介 -->
+    <h2 class="section-title">SPECIFICATION</h2>
+    <div class="spec-card">
+      <div class="spec-row">
+        <span class="spec-label">Target</span>
+        <span class="spec-value" id="spec-target">シーバス (Seabass)</span>
+      </div>
+      <div class="spec-row">
+        <span class="spec-label">Length</span>
+        <span class="spec-value" id="spec-length">95mm</span>
+      </div>
+      <div class="spec-row">
+        <span class="spec-label">Weight</span>
+        <span class="spec-value" id="spec-weight">14g</span>
+      </div>
+      <div class="spec-row">
+        <span class="spec-label">Type</span>
+        <span class="spec-value" id="spec-type">Sinking Pencil</span>
+      </div>
+      <div class="spec-row">
+        <span class="spec-label">Action</span>
+        <span class="spec-value" id="spec-action">ナチュラル微弱波動</span>
+      </div>
+    </div>
+
+    <!-- カラーバリエーション -->
+    <h2 class="section-title">COLOR VARIATION</h2>
+    <div class="color-grid" id="color-grid">
+      <!-- JavaScriptで動的切り替え -->
+    </div>
+
+  </div>
+
+  <footer>
+    &copy; 2026 Lure Information. All Rights Reserved.
+  </footer>
+
+  <script>
+    const brandData = {
+      amy: {
+        imgSrc: 'AMY_3.jpg',
+        title: 'AMY',
+        catch: 'ナチュラルな微弱波動でターゲットを狙い打つエイミー',
+        target: 'シーバス / ヒラメ',
+        length: '95mm',
+        weight: '14g',
+        type: 'Sinking Pencil',
+        action: 'ナチュラル微弱波動 / ホログラムフラッシング',
+        fallbackBg: 'radial-gradient(circle, #2e1065 0%, #0b0c10 100%)',
+        fallbackColor: '#e9d5ff',
+        colors: [
+          { name: 'パープルホログラム', bg: 'linear-gradient(135deg, #7e22ce, #c084fc)' },
+          { name: 'クリアピンク', bg: 'linear-gradient(135deg, #ec4899, #fbcfe8)' },
+          { name: 'リアルイワシ', bg: 'linear-gradient(135deg, #2563eb, #93c5fd)' },
+          { name: 'チャートゴールド', bg: 'linear-gradient(135deg, #eab308, #fef08a)' }
+        ]
+      },
+      lukia: {
+        imgSrc: 'LUKIA_3.jpg',
+        title: 'LUKIA',
+        catch: '都会の明暗に潜む一筋の光',
+        target: 'ベイエリア シーバス',
+        length: '85mm',
+        weight: '12g',
+        type: 'Vibration / Lipless',
+        action: 'ハイピッチタイトローリング / 蓄光発光',
+        fallbackBg: 'radial-gradient(circle, #064e3b 0%, #0b0c10 100%)',
+        fallbackColor: '#6ee7b7',
+        colors: [
+          { name: 'ナイトルミナス (蓄光)', bg: 'linear-gradient(135deg, #22c55e, #86efac)' },
+          { name: 'アーバンブラック', bg: 'linear-gradient(135deg, #18181b, #52525b)' },
+          { name: 'ハーフクリアチャート', bg: 'linear-gradient(135deg, #84cc16, #d9f99d)' },
+          { name: 'パールホワイト', bg: 'linear-gradient(135deg, #e2e8f0, #ffffff)' }
+        ]
+      }
+    };
+
+    function switchBrand(brandKey) {
+      const data = brandData[brandKey];
+      
+      // タブの切り替え
+      document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+      event.target.classList.add('active');
+
+      // 画像とフォールバックの切り替え
+      const heroImg = document.getElementById('hero-img');
+      heroImg.style.display = 'block';
+      heroImg.src = data.imgSrc;
+
+      const fallback = document.getElementById('hero-fallback');
+      fallback.style.display = 'none';
+      fallback.style.background = data.fallbackBg;
+      document.getElementById('fallback-title').innerText = data.title;
+      document.getElementById('fallback-title').style.color = data.fallbackColor;
+      document.getElementById('fallback-catch').innerText = data.catch;
+
+      // スペックの切り替え
+      document.getElementById('spec-target').innerText = data.target;
+      document.getElementById('spec-length').innerText = data.length;
+      document.getElementById('spec-weight').innerText = data.weight;
+      document.getElementById('spec-type').innerText = data.type;
+      document.getElementById('spec-action').innerText = data.action;
+
+      // カラーバリエーションの切り替え
+      const colorGrid = document.getElementById('color-grid');
+      colorGrid.innerHTML = '';
+      data.colors.forEach(col => {
+        const card = document.createElement('div');
+        card.className = 'color-card';
+        card.innerHTML = `
+          <div class="color-swatch" style="background: ${col.bg};"></div>
+          <div class="color-name">${col.name}</div>
+        `;
+        colorGrid.appendChild(card);
+      });
+    }
+
+    // 初期化
+    document.addEventListener('DOMContentLoaded', () => {
+      switchBrand('amy');
+    });
+  </script>
+</body>
+</html>
