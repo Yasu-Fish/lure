@@ -2,92 +2,26 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ルアー紹介</title>
   <style>
-    body {
-      font-family: sans-serif;
-      background-color: #f5f5f5;
-      margin: 0;
-      padding: 20px;
-    }
-    .container {
-      max-width: 800px;
-      margin: 0 auto;
-    }
-    h1 {
-      border-bottom: 3px solid #0066cc;
-      padding-bottom: 10px;
-      color: #0066cc;
-      text-align: center;
-    }
-    /* 上部のナビゲーションメニュー */
-    .nav {
-      text-align: center;
-      margin-bottom: 20px;
-      padding: 10px;
-      background-color: #ffffff;
-      border-radius: 8px;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-    }
-    .nav a {
-      margin: 0 15px;
-      font-size: 18px;
-      font-weight: bold;
-      color: #0066cc;
-      text-decoration: none;
-    }
-    .nav a:hover {
-      text-decoration: underline;
-    }
-    /* カード風デザイン */
-    .lure-card {
-      background: #ffffff;
-      border-radius: 8px;
-      padding: 20px;
-      margin-bottom: 30px;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-      text-align: center;
-    }
-    .lure-card h2 {
-      color: #222;
-      border-left: 4px solid #0066cc;
-      padding-left: 10px;
-      text-align: left;
-    }
-    /* 画像を少し小さく（60%）して中央表示 */
+    /* 画像を少し小さく（60%）し、画面からはみ出さないように収める設定 */
     img {
       max-width: 60%;
       height: auto;
-      border-radius: 6px;
       display: block;
-      margin: 15px auto;
+      margin: 10px 0;
     }
   </style>
 </head>
 <body>
 
-  <div class="container">
-    <h1>ルアー紹介</h1>
+  <h1>ルアー紹介</h1>
 
-    <!-- 上部リンクメニュー -->
-    <div class="nav">
-      <a href="#amy">AMY</a>
-      <a href="#lukia">LUKIA</a>
-    </div>
+  <h2>AMY</h2>
+  <img src="LUKIA_3.jpg" alt="AMY">
 
-    <!-- AMY -->
-    <div id="amy" class="lure-card">
-      <h2>AMY</h2>
-      <img src="LUKIA_3.jpg" alt="AMY">
-    </div>
-
-    <!-- LUKIA -->
-    <div id="lukia" class="lure-card">
-      <h2>LUKIA</h2>
-      <img src="AMY_3.jpg" alt="LUKIA">
-    </div>
-  </div>
+  <h2>LUKIA</h2>
+  <img src="AMY_3.jpg" alt="LUKIA">
 
 </body>
 </html>
