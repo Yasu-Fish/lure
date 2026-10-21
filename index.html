@@ -64,24 +64,25 @@
       box-shadow: 0 2px 10px rgba(126, 34, 206, 0.5);
     }
 
-    /* ヒーローポスター（画面内に収める設定） */
+    /* ヒーローポスター（左右に余白を作り確実に収める設定） */
     .hero-container {
       position: relative;
-      width: 100vw;
-      height: calc(100vh - 60px);
-      margin-top: 60px;
+      width: 100%;
+      max-width: 1000px;
+      height: calc(100vh - 80px);
+      margin: 70px auto 0;
       display: flex;
       justify-content: center;
       align-items: center;
       overflow: hidden;
-      padding: 20px;
+      padding: 0 20px;
     }
     .hero-bg {
-      max-width: 100%;
-      max-height: 100%;
+      max-width: 90%;
+      max-height: 90vh;
       width: auto;
       height: auto;
-      object-fit: contain; /* 全体が切れないように収める */
+      object-fit: contain; /* 縦横比を崩さず全体を収める */
       object-position: center;
       transition: opacity 0.5s ease;
       border-radius: 8px;
@@ -90,7 +91,7 @@
     /* スクロール誘導アイコン */
     .scroll-indicator {
       position: absolute;
-      bottom: 15px;
+      bottom: 10px;
       left: 50%;
       transform: translateX(-50%);
       display: flex;
@@ -211,8 +212,8 @@
   <header>
     <div class="brand-title">Lure Information</div>
     <div class="tab-switcher">
-      <button class="tab-btn active" onclick="switchBrand('amy')">AMY</button>
-      <button class="tab-btn" onclick="switchBrand('lukia')">LUKIA</button>
+      <button class="tab-btn active" onclick="switchBrand('amy', event)">AMY</button>
+      <button class="tab-btn" onclick="switchBrand('lukia', event)">LUKIA</button>
     </div>
   </header>
 
@@ -311,13 +312,13 @@
       }
     };
 
-    function switchBrand(brandKey) {
+    function switchBrand(brandKey, evt) {
       const data = brandData[brandKey];
       
       // タブの切り替え
       document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
-      if (event && event.target) {
-        event.target.classList.add('active');
+      if (evt && evt.target) {
+        evt.target.classList.add('active');
       }
 
       // 画像とフォールバックの切り替え
@@ -355,7 +356,7 @@
 
     // 初期化
     document.addEventListener('DOMContentLoaded', () => {
-      switchBrand('amy');
+      switchBrand('amy', null);
     });
   </script>
 </body>
