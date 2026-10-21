@@ -10,6 +10,9 @@
       margin: 0;
       padding: 0;
     }
+    html {
+      scroll-behavior: smooth; /* クリック時のスムーズスクロール */
+    }
     body {
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
       background-color: #0b0c10;
@@ -83,7 +86,7 @@
       max-height: 92vh;
       object-fit: contain;
       object-position: center;
-      transition: opacity 0.5s ease;
+      transition: opacity 0.3s ease;
     }
 
     /* スクロール誘導アイコン */
@@ -164,7 +167,7 @@
       color: #fff;
     }
 
-    /* カラーバリエーション（サイズ均一化＆白枠解消修正） */
+    /* カラーバリエーション（クリック対応・エフェクト追加） */
     .color-grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
@@ -177,22 +180,29 @@
       border-radius: 12px;
       padding: 12px;
       text-align: center;
+      cursor: pointer; /* ポインターアイコン表示 */
+      transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+    .color-card:hover {
+      transform: translateY(-4px);
+      border-color: #a855f7;
+      box-shadow: 0 4px 15px rgba(168, 85, 247, 0.3);
     }
     .color-swatch {
       width: 100%;
-      height: 120px; /* 高さを統一 */
+      height: 120px;
       border-radius: 8px;
       margin-bottom: 10px;
       overflow: hidden;
       display: flex;
       align-items: center;
       justify-content: center;
-      background-color: #1a1d24; /* 下地を黒系にして白いスキマを防止 */
+      background-color: #1a1d24;
     }
     .color-swatch img {
       width: 100%;
       height: 100%;
-      object-fit: cover; /* 枠いっぱいに隙間なく引き伸ばして表示 */
+      object-fit: cover;
       object-position: center;
       border-radius: 8px;
       display: block;
@@ -224,7 +234,7 @@
   </header>
 
   <!-- 全画面ポスターヒーロー -->
-  <div class="hero-container">
+  <div class="hero-container" id="hero-section">
     <img id="hero-img" class="hero-bg" src="AMY_3.jpg" alt="Lure Poster" onerror="this.style.display='none'; document.getElementById('hero-fallback').style.display='flex';">
     
     <div id="hero-fallback" class="hero-bg" style="display:none; flex-direction:column; justify-content:center; align-items:center; background: radial-gradient(circle, #2e1065 0%, #0b0c10 100%); text-align:center; padding:20px;">
@@ -265,7 +275,7 @@
     <!-- カラーバリエーション -->
     <h2 class="section-title">COLOR VARIATION</h2>
     <div class="color-grid" id="color-grid">
-      <!-- JavaScriptで動的切り替え -->
+      <!-- JavaScriptで動的生成 -->
     </div>
 
   </div>
@@ -321,10 +331,8 @@
         evt.target.classList.add('active');
       }
 
-      // 画像とフォールバックの切り替え
-      const heroImg = document.getElementById('hero-img');
-      heroImg.style.display = 'block';
-      heroImg.src = data.imgSrc;
+      // メイン画像の切り替え
+      changeMainImage(data.imgSrc);
 
       const fallback = document.getElementById('hero-fallback');
       fallback.style.display = 'none';
@@ -339,12 +347,13 @@
       document.getElementById('spec-type').innerText = data.type;
       document.getElementById('spec-hook').innerText = data.hook;
 
-      // カラーバリエーションの切り替え（画像サイズ統一化）
+      // カラーバリエーションの生成（クリックイベント設定）
       const colorGrid = document.getElementById('color-grid');
       colorGrid.innerHTML = '';
       data.colors.forEach(col => {
         const card = document.createElement('div');
         card.className = 'color-card';
+        card.onclick = () => selectColor(col.img); // 画像クリックでメイン画像変更
         card.innerHTML = `
           <div class="color-swatch">
             <img src="${col.img}" alt="${col.name}" onerror="this.style.display='none';">
@@ -353,6 +362,23 @@
         `;
         colorGrid.appendChild(card);
       });
+    }
+
+    // カラークリック時にメイン画像を差し替えて上にスクロールする処理
+    function selectColor(imageSrc) {
+      changeMainImage(imageSrc);
+      document.getElementById('hero-section').scrollIntoView({ behavior: 'smooth' });
+    }
+
+    // メイン画像切り替えの共通処理
+    function changeMainImage(imageSrc) {
+      const heroImg = document.getElementById('hero-img');
+      heroImg.style.opacity = '0';
+      setTimeout(() => {
+        heroImg.src = imageSrc;
+        heroImg.style.display = 'block';
+        heroImg.style.opacity = '1';
+      }, 150);
     }
 
     // 初期化
