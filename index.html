@@ -164,7 +164,7 @@
       color: #fff;
     }
 
-    /* カラーバリエーション（画像表示対応） */
+    /* カラーバリエーション（サイズ均一化＆白枠解消修正） */
     .color-grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
@@ -180,19 +180,22 @@
     }
     .color-swatch {
       width: 100%;
-      height: 100px;
+      height: 120px; /* 高さを統一 */
       border-radius: 8px;
       margin-bottom: 10px;
       overflow: hidden;
       display: flex;
       align-items: center;
       justify-content: center;
+      background-color: #1a1d24; /* 下地を黒系にして白いスキマを防止 */
     }
     .color-swatch img {
       width: 100%;
       height: 100%;
-      object-fit: cover;
+      object-fit: cover; /* 枠いっぱいに隙間なく引き伸ばして表示 */
+      object-position: center;
       border-radius: 8px;
+      display: block;
     }
     .color-name {
       font-size: 0.85rem;
@@ -272,12 +275,6 @@
   </footer>
 
   <script>
-    /* 
-      【設定方法】
-      name: カラーの名前
-      img: カラー画像ファイル名（GitHubにアップロードしたファイル名）
-      bg: 画像がない場合の予備グラデーション
-    */
     const brandData = {
       amy: {
         imgSrc: 'AMY_3.jpg',
@@ -290,10 +287,10 @@
         fallbackBg: 'radial-gradient(circle, #2e1065 0%, #0b0c10 100%)',
         fallbackColor: '#e9d5ff',
         colors: [
-          { name: 'アーバングリーン', img: 'AMY_color1.jpg', bg: 'linear-gradient(135deg, #7e22ce, #c084fc)' },
-          { name: 'ブラックプラム', img: 'AMY_color2.jpg', bg: 'linear-gradient(135deg, #ec4899, #fbcfe8)' },
-          { name: 'クリアパープル', img: 'AMY_color3.jpg', bg: 'linear-gradient(135deg, #2563eb, #93c5fd)' },
-          { name: 'レッドアイグロー', img: 'AMY_color4.jpg', bg: 'linear-gradient(135deg, #eab308, #fef08a)' }
+          { name: 'パープルホログラム', img: 'AMY_color1.jpg', bg: 'linear-gradient(135deg, #7e22ce, #c084fc)' },
+          { name: 'クリアピンク', img: 'AMY_color2.jpg', bg: 'linear-gradient(135deg, #ec4899, #fbcfe8)' },
+          { name: 'リアルイワシ', img: 'AMY_color3.jpg', bg: 'linear-gradient(135deg, #2563eb, #93c5fd)' },
+          { name: 'チャートゴールド', img: 'AMY_color4.jpg', bg: 'linear-gradient(135deg, #eab308, #fef08a)' }
         ]
       },
       lukia: {
@@ -307,10 +304,10 @@
         fallbackBg: 'radial-gradient(circle, #064e3b 0%, #0b0c10 100%)',
         fallbackColor: '#6ee7b7',
         colors: [
-          { name: 'アーバングリーン', img: 'LUKIA_color1.jpg', bg: 'linear-gradient(135deg, #22c55e, #86efac)' },
-          { name: 'ブラックプラム', img: 'LUKIA_color2.jpg', bg: 'linear-gradient(135deg, #18181b, #52525b)' },
-          { name: 'クリアイエロー', img: 'LUKIA_color3.jpg', bg: 'linear-gradient(135deg, #84cc16, #d9f99d)' },
-          { name: 'レッドアイグロー', img: 'LUKIA_color4.jpg', bg: 'linear-gradient(135deg, #e2e8f0, #ffffff)' }
+          { name: 'ナイトルミナス (蓄光)', img: 'LUKIA_color1.jpg', bg: 'linear-gradient(135deg, #22c55e, #86efac)' },
+          { name: 'アーバンブラック', img: 'LUKIA_color2.jpg', bg: 'linear-gradient(135deg, #18181b, #52525b)' },
+          { name: 'ハーフクリアチャート', img: 'LUKIA_color3.jpg', bg: 'linear-gradient(135deg, #84cc16, #d9f99d)' },
+          { name: 'パールホワイト', img: 'LUKIA_color4.jpg', bg: 'linear-gradient(135deg, #e2e8f0, #ffffff)' }
         ]
       }
     };
@@ -342,14 +339,14 @@
       document.getElementById('spec-type').innerText = data.type;
       document.getElementById('spec-hook').innerText = data.hook;
 
-      // カラーバリエーションの切り替え（画像対応）
+      // カラーバリエーションの切り替え（画像サイズ統一化）
       const colorGrid = document.getElementById('color-grid');
       colorGrid.innerHTML = '';
       data.colors.forEach(col => {
         const card = document.createElement('div');
         card.className = 'color-card';
         card.innerHTML = `
-          <div class="color-swatch" style="background: ${col.bg};">
+          <div class="color-swatch">
             <img src="${col.img}" alt="${col.name}" onerror="this.style.display='none';">
           </div>
           <div class="color-name">${col.name}</div>
