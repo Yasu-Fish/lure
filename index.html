@@ -64,28 +64,26 @@
       box-shadow: 0 2px 10px rgba(126, 34, 206, 0.5);
     }
 
-    /* ヒーローポスター（画像の幅を大きく調整） */
+    /* ヒーローポスター（画像の横幅を画面いっぱいに拡大） */
     .hero-container {
       position: relative;
       width: 100%;
-      max-width: 1200px;
-      height: calc(100vh - 70px);
-      margin: 60px auto 0;
+      height: calc(100vh - 60px);
+      margin-top: 60px;
       display: flex;
       justify-content: center;
       align-items: center;
       overflow: hidden;
-      padding: 0 10px;
+      padding: 0;
     }
     .hero-bg {
-      max-width: 98%;
-      max-height: 85vh;
-      width: auto;
+      width: 100%;
+      max-width: 100%;
       height: auto;
+      max-height: 92vh;
       object-fit: contain;
       object-position: center;
       transition: opacity 0.5s ease;
-      border-radius: 8px;
     }
 
     /* スクロール誘導アイコン */
