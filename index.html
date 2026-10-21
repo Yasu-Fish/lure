@@ -21,6 +21,26 @@
       color: #0066cc;
       text-align: center;
     }
+    /* 上部のナビゲーションメニュー */
+    .nav {
+      text-align: center;
+      margin-bottom: 20px;
+      padding: 10px;
+      background-color: #ffffff;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    }
+    .nav a {
+      margin: 0 15px;
+      font-size: 18px;
+      font-weight: bold;
+      color: #0066cc;
+      text-decoration: none;
+    }
+    .nav a:hover {
+      text-decoration: underline;
+    }
+    /* カード風デザイン */
     .lure-card {
       background: #ffffff;
       border-radius: 8px;
@@ -35,9 +55,9 @@
       padding-left: 10px;
       text-align: left;
     }
-    /* 画像を少し小さく（70%）し、中央に綺麗に表示 */
+    /* 画像を少し小さく（60%）して中央表示 */
     img {
-      max-width: 70%;
+      max-width: 60%;
       height: auto;
       border-radius: 6px;
       display: block;
@@ -50,14 +70,20 @@
   <div class="container">
     <h1>ルアー紹介</h1>
 
-    <!-- AMYのカード（緑色のルアー画像が入ったファイル名を指定） -->
-    <div class="lure-card">
+    <!-- 上部リンクメニュー -->
+    <div class="nav">
+      <a href="#amy">AMY</a>
+      <a href="#lukia">LUKIA</a>
+    </div>
+
+    <!-- AMY -->
+    <div id="amy" class="lure-card">
       <h2>AMY</h2>
       <img src="LUKIA_3.jpg" alt="AMY">
     </div>
 
-    <!-- LUKIAのカード（もう一方のルアー画像が入ったファイル名を指定） -->
-    <div class="lure-card">
+    <!-- LUKIA -->
+    <div id="lukia" class="lure-card">
       <h2>LUKIA</h2>
       <img src="AMY_3.jpg" alt="LUKIA">
     </div>
