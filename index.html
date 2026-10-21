@@ -11,7 +11,7 @@
       padding: 0;
     }
     html {
-      scroll-behavior: smooth; /* クリック時のスムーズスクロール */
+      scroll-behavior: smooth;
     }
     body {
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
@@ -167,7 +167,7 @@
       color: #fff;
     }
 
-    /* カラーバリエーション（クリック対応・エフェクト追加） */
+    /* カラーバリエーション */
     .color-grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
@@ -180,7 +180,7 @@
       border-radius: 12px;
       padding: 12px;
       text-align: center;
-      cursor: pointer; /* ポインターアイコン表示 */
+      cursor: pointer;
       transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
     }
     .color-card:hover {
@@ -285,6 +285,12 @@
   </footer>
 
   <script>
+    /*
+      【解説】
+      ・img: 下の「COLOR VARIATION」一覧に表示するサムネイル画像
+      ・detailImg: クリックした時に上のメインエリアに表示させたい別の画像ファイル名
+        ※detailImg を書き換えることで、クリック時に別の画像を表示できます。
+    */
     const brandData = {
       amy: {
         imgSrc: 'AMY_3.jpg',
@@ -297,10 +303,10 @@
         fallbackBg: 'radial-gradient(circle, #2e1065 0%, #0b0c10 100%)',
         fallbackColor: '#e9d5ff',
         colors: [
-          { name: 'アーバングリーン', img: 'AMY_color1.jpg', bg: 'linear-gradient(135deg, #7e22ce, #c084fc)' },
-          { name: 'ブラックプラム', img: 'AMY_color2.jpg', bg: 'linear-gradient(135deg, #ec4899, #fbcfe8)' },
-          { name: 'クリアパープル', img: 'AMY_color3.jpg', bg: 'linear-gradient(135deg, #2563eb, #93c5fd)' },
-          { name: 'レッドアイグロー', img: 'AMY_color4.jpg', bg: 'linear-gradient(135deg, #eab308, #fef08a)' }
+          { name: 'アーバングリーン', img: 'AMY_color1.jpg', detailImg: 'AMY_color1.jpg', bg: 'linear-gradient(135deg, #7e22ce, #c084fc)' },
+          { name: 'ブラックプラム', img: 'AMY_color2.jpg', detailImg: 'AMY_color2.jpg', bg: 'linear-gradient(135deg, #ec4899, #fbcfe8)' },
+          { name: 'クリアパープル', img: 'AMY_color3.jpg', detailImg: 'AMY_color3.jpg', bg: 'linear-gradient(135deg, #2563eb, #93c5fd)' },
+          { name: 'レッドアイグロー', img: 'AMY_color4.jpg', detailImg: 'AMY_color4_large.jpg', bg: 'linear-gradient(135deg, #eab308, #fef08a)' }
         ]
       },
       lukia: {
@@ -314,10 +320,10 @@
         fallbackBg: 'radial-gradient(circle, #064e3b 0%, #0b0c10 100%)',
         fallbackColor: '#6ee7b7',
         colors: [
-          { name: 'アーバングリーン', img: 'LUKIA_color1.jpg', bg: 'linear-gradient(135deg, #22c55e, #86efac)' },
-          { name: 'ブラックプラム', img: 'LUKIA_color2.jpg', bg: 'linear-gradient(135deg, #18181b, #52525b)' },
-          { name: 'クリアイエロー', img: 'LUKIA_color3.jpg', bg: 'linear-gradient(135deg, #84cc16, #d9f99d)' },
-          { name: 'レッドアイグロー', img: 'LUKIA_color4.jpg', bg: 'linear-gradient(135deg, #e2e8f0, #ffffff)' }
+          { name: 'アーバングリーン', img: 'LUKIA_color1.jpg', detailImg: 'LUKIA_color1.jpg', bg: 'linear-gradient(135deg, #22c55e, #86efac)' },
+          { name: 'ブラックプラム', img: 'LUKIA_color2.jpg', detailImg: 'LUKIA_color2.jpg', bg: 'linear-gradient(135deg, #18181b, #52525b)' },
+          { name: 'クリアイエロー', img: 'LUKIA_color3.jpg', detailImg: 'LUKIA_color3.jpg', bg: 'linear-gradient(135deg, #84cc16, #d9f99d)' },
+          { name: 'レッドアイグロー', img: 'LUKIA_color4.jpg', detailImg: 'LUKIA_color4.jpg', bg: 'linear-gradient(135deg, #e2e8f0, #ffffff)' }
         ]
       }
     };
@@ -353,7 +359,10 @@
       data.colors.forEach(col => {
         const card = document.createElement('div');
         card.className = 'color-card';
-        card.onclick = () => selectColor(col.img); // 画像クリックでメイン画像変更
+        // detailImg が設定されていればそれを表示、なければ img を使用
+        const targetImage = col.detailImg || col.img;
+        card.onclick = () => selectColor(targetImage);
+        
         card.innerHTML = `
           <div class="color-swatch">
             <img src="${col.img}" alt="${col.name}" onerror="this.style.display='none';">
