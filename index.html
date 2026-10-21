@@ -64,7 +64,7 @@
       box-shadow: 0 2px 10px rgba(126, 34, 206, 0.5);
     }
 
-    /* ヒーローポスター（左右に余白を作り確実に収める設定） */
+    /* ヒーローポスター（画面内に綺麗に収める設定） */
     .hero-container {
       position: relative;
       width: 100%;
@@ -82,7 +82,7 @@
       max-height: 90vh;
       width: auto;
       height: auto;
-      object-fit: contain; /* 縦横比を崩さず全体を収める */
+      object-fit: contain;
       object-position: center;
       transition: opacity 0.5s ease;
       border-radius: 8px;
@@ -239,24 +239,20 @@
     <h2 class="section-title">SPECIFICATION</h2>
     <div class="spec-card">
       <div class="spec-row">
-        <span class="spec-label">Target</span>
-        <span class="spec-value" id="spec-target">シーバス (Seabass)</span>
-      </div>
-      <div class="spec-row">
         <span class="spec-label">Length</span>
-        <span class="spec-value" id="spec-length">95mm</span>
+        <span class="spec-value" id="spec-length">72mm</span>
       </div>
       <div class="spec-row">
         <span class="spec-label">Weight</span>
-        <span class="spec-value" id="spec-weight">14g</span>
+        <span class="spec-value" id="spec-weight">8.0g</span>
       </div>
       <div class="spec-row">
         <span class="spec-label">Type</span>
-        <span class="spec-value" id="spec-type">Sinking Pencil</span>
+        <span class="spec-value" id="spec-type">シンキングペンシル</span>
       </div>
       <div class="spec-row">
-        <span class="spec-label">Action</span>
-        <span class="spec-value" id="spec-action">ナチュラル微弱波動</span>
+        <span class="spec-label">Hook</span>
+        <span class="spec-value" id="spec-hook">#8</span>
       </div>
     </div>
 
@@ -278,11 +274,10 @@
         imgSrc: 'AMY_3.jpg',
         title: 'AMY',
         catch: 'ナチュラルな微弱波動でターゲットを狙い打つエイミー',
-        target: 'シーバス / ヒラメ',
-        length: '95mm',
-        weight: '14g',
-        type: 'Sinking Pencil',
-        action: 'ナチュラル微弱波動 / ホログラムフラッシング',
+        length: '72mm',
+        weight: '8.0g',
+        type: 'シンキングペンシル',
+        hook: '#8',
         fallbackBg: 'radial-gradient(circle, #2e1065 0%, #0b0c10 100%)',
         fallbackColor: '#e9d5ff',
         colors: [
@@ -296,11 +291,10 @@
         imgSrc: 'LUKIA_3.jpg',
         title: 'LUKIA',
         catch: '都会の明暗に潜む一筋の光',
-        target: 'ベイエリア シーバス',
-        length: '85mm',
-        weight: '12g',
-        type: 'Vibration / Lipless',
-        action: 'ハイピッチタイトローリング / 蓄光発光',
+        length: '60mm',
+        weight: '9.1g',
+        type: 'シンキングバイブ',
+        hook: '#8',
         fallbackBg: 'radial-gradient(circle, #064e3b 0%, #0b0c10 100%)',
         fallbackColor: '#6ee7b7',
         colors: [
@@ -334,11 +328,10 @@
       document.getElementById('fallback-catch').innerText = data.catch;
 
       // スペックの切り替え
-      document.getElementById('spec-target').innerText = data.target;
       document.getElementById('spec-length').innerText = data.length;
       document.getElementById('spec-weight').innerText = data.weight;
       document.getElementById('spec-type').innerText = data.type;
-      document.getElementById('spec-action').innerText = data.action;
+      document.getElementById('spec-hook').innerText = data.hook;
 
       // カラーバリエーションの切り替え
       const colorGrid = document.getElementById('color-grid');
