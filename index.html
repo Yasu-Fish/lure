@@ -36,37 +36,37 @@
       border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     }
     
-    /* ロゴ設定（画像を大幅拡大し余白をカットしてくっきり表示） */
+    /* PC表示用のロゴ設定 */
     .brand-logo-container {
       display: flex;
       align-items: center;
       justify-content: flex-start;
       height: 100%;
-      width: 160px; /* ロゴ枠の横幅を確保 */
+      width: 160px;
       overflow: hidden;
     }
     .brand-logo-img {
-      height: 120px; /* 余白込み画像をヘッダーからはみ出るほど拡大 */
+      height: 80px;
       width: auto;
       object-fit: contain;
-      transform: scale(2.2); /* 余白を飛ばして魚ラインを大きく拡大 */
+      transform: scale(1.4);
       transform-origin: left center;
       /* 白背景透過＆グラデーション着色 */
       filter: invert(1) sepia(1) saturate(10) hue-rotate(220deg) brightness(1.6) drop-shadow(0 0 8px rgba(168, 85, 247, 0.9));
       mix-blend-mode: color-dodge;
     }
 
-    /* スマホ画面用のロゴ拡大補正 */
+    /* スマホ画面用のロゴサイズ調整（半分の大きさに縮小） */
     @media (max-width: 768px) {
       header {
-        padding: 0 10px;
+        padding: 0 12px;
       }
       .brand-logo-container {
-        width: 130px;
+        width: 100px; /* 枠の幅をコンパクトに */
       }
       .brand-logo-img {
-        height: 100px;
-        transform: scale(2.0);
+        height: 50px; /* 高さを半分に縮小 */
+        transform: scale(1.0); /* 拡大率を半分の1.0に変更 */
       }
     }
 
