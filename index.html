@@ -36,28 +36,20 @@
       border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     }
     
-    /* ロゴ（Lure Informationと同じグラデーション色合いを適用） */
+    /* ロゴ（シンプルで確実な画像表示に修正） */
     .brand-logo-container {
       display: flex;
       align-items: center;
-      height: 38px;
+      height: 100%;
     }
-    .brand-logo {
+    .brand-logo-img {
       height: 32px;
       width: auto;
-      /* 白背景ロゴの黒部分をグラデーションカラーに変換するフィルター処理 */
-      filter: invert(1) drop-shadow(0 0 2px rgba(168, 85, 247, 0.5));
+      object-fit: contain;
+      /* 白背景を暗い背景になじませ、パープル・シアン系の色合いを付与 */
+      filter: invert(1) hue-rotate(240deg) brightness(1.2) drop-shadow(0 0 4px rgba(168, 85, 247, 0.6));
       mix-blend-mode: screen;
-      background: linear-gradient(135deg, #a855f7, #22d3ee);
-      -webkit-mask-image: url('logo.jpg');
-      mask-image: url('logo.jpg');
-      -webkit-mask-size: contain;
-      mask-size: contain;
-      -webkit-mask-repeat: no-repeat;
-      mask-repeat: no-repeat;
-      -webkit-mask-position: center;
-      mask-position: center;
-      width: 90px;
+      border-radius: 4px;
     }
 
     /* 切り替えタブ */
@@ -243,9 +235,9 @@
 
   <!-- ヘッダー -->
   <header>
-    <!-- 左上ロゴ表示部分 -->
+    <!-- 左上ロゴ画像表示部分 -->
     <div class="brand-logo-container">
-      <div class="brand-logo" title="BFL"></div>
+      <img src="logo.jpg" alt="BFL Logo" class="brand-logo-img" onerror="this.onerror=null; this.src='Gemini_Generated_Image_kqjzlpkqjzlpkqjz.jpg';">
     </div>
 
     <div class="tab-switcher">
