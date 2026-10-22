@@ -36,20 +36,20 @@
       border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     }
     
-    /* ロゴ（ヘッダーの高さいっぱいに大きく表示し、黒背景になじませる設定） */
+    /* ロゴ（白ラインに着色＆グラデーション発光） */
     .brand-logo-container {
       display: flex;
       align-items: center;
       height: 100%;
     }
     .brand-logo-img {
-      height: 48px; /* ヘッダー(60px)に合わせて大きく拡大 */
+      height: 48px;
       width: auto;
-      max-width: 160px; /* 横幅も十分確保 */
+      max-width: 160px;
       object-fit: contain;
-      /* 白背景を自動的に透過させて黒背景になじませる */
       mix-blend-mode: screen;
-      filter: brightness(1.2) drop-shadow(0 0 6px rgba(168, 85, 247, 0.5));
+      /* 白いラインにパープル〜シアン系のカラーを着色しネオン風に発光させる設定 */
+      filter: sepia(1) hue-rotate(220deg) saturate(5) brightness(1.2) drop-shadow(0 0 8px rgba(168, 85, 247, 0.9)) drop-shadow(0 0 3px rgba(34, 211, 238, 0.8));
     }
 
     /* 切り替えタブ */
@@ -235,7 +235,6 @@
 
   <!-- ヘッダー -->
   <header>
-    <!-- 左上ロゴ画像表示部分 -->
     <div class="brand-logo-container">
       <img src="logo.jpg" alt="BFL Logo" class="brand-logo-img">
     </div>
