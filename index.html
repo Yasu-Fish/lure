@@ -233,13 +233,29 @@
       font-weight: 600;
     }
 
-    /* フッター */
+    /* フッターおよびロゴ設定 */
     footer {
-      text-align: center;
-      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      padding: 30px 20px;
       font-size: 0.75rem;
       color: #555;
       border-top: 1px solid rgba(255, 255, 255, 0.05);
+    }
+    .footer-logo {
+      height: 36px; /* 控えめで上品なサイズ感 */
+      width: auto;
+      object-fit: contain;
+      /* 白背景透過＆webページにマッチしたグレー文字にブレンド */
+      mix-blend-mode: screen;
+      filter: invert(1) brightness(0.65) opacity(0.85);
+      transition: opacity 0.3s ease;
+    }
+    .footer-logo:hover {
+      opacity: 1;
     }
   </style>
 </head>
@@ -303,7 +319,8 @@
   </div>
 
   <footer>
-    &copy; 2026 Lure Information. All Rights Reserved.
+    <img src="logo1.jpg" alt="BOTTOM FIELD LAB Logo" class="footer-logo" onerror="this.src='logo.jpg'; this.onerror=null;">
+    <div>&copy; 2026 Lure Information. All Rights Reserved.</div>
   </footer>
 
   <script>
