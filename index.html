@@ -246,11 +246,10 @@
       border-top: 1px solid rgba(255, 255, 255, 0.05);
     }
     .footer-logo {
-      height: 70px !important; /* 強制的にしっかり拡大 */
+      height: 70px !important;
       width: auto !important;
       max-width: 80vw;
       object-fit: contain;
-      /* 白背景透過＆webページにマッチした色合い */
       mix-blend-mode: screen;
       filter: invert(1) brightness(0.7) opacity(0.9);
       transition: opacity 0.3s ease;
@@ -337,10 +336,11 @@
         fallbackBg: 'radial-gradient(circle, #2e1065 0%, #0b0c10 100%)',
         fallbackColor: '#e9d5ff',
         colors: [
-          { name: 'アーバングリーン', img: 'AMY_color1.jpg', bg: 'linear-gradient(135deg, #22c55e, #15803d)' },
-          { name: 'ブラックプラム', img: 'AMY_color2.jpg', bg: 'linear-gradient(135deg, #18181b, #3f3f46)' },
-          { name: 'クリアパープル', img: 'AMY_color3.jpg', bg: 'linear-gradient(135deg, #a855f7, #6b21a8)' },
-          { name: 'レッドアイグロー', img: 'AMY_color4.jpg', bg: 'linear-gradient(135deg, #ef4444, #991b1b)' }
+          /* detailImg にクリック時にメインで開きたい別画像ファイルを指定できます */
+          { name: 'アーバングリーン', img: 'AMY_color1.jpg', detailImg: 'AMY_color1.jpg', bg: 'linear-gradient(135deg, #22c55e, #15803d)' },
+          { name: 'ブラックプラム', img: 'AMY_color2.jpg', detailImg: 'AMY_color2.jpg', bg: 'linear-gradient(135deg, #18181b, #3f3f46)' },
+          { name: 'クリアパープル', img: 'AMY_color3.jpg', detailImg: 'AMY_color3.jpg', bg: 'linear-gradient(135deg, #a855f7, #6b21a8)' },
+          { name: 'レッドアイグロー', img: 'AMY_color4.jpg', detailImg: 'AMY_color4.jpg', bg: 'linear-gradient(135deg, #ef4444, #991b1b)' }
         ]
       },
       lukia: {
@@ -354,10 +354,10 @@
         fallbackBg: 'radial-gradient(circle, #064e3b 0%, #0b0c10 100%)',
         fallbackColor: '#6ee7b7',
         colors: [
-          { name: 'アーバングリーン', img: 'LUKIA_color1.jpg', bg: 'linear-gradient(135deg, #22c55e, #15803d)' },
-          { name: 'ブラックプラム', img: 'LUKIA_color2.jpg', bg: 'linear-gradient(135deg, #18181b, #3f3f46)' },
-          { name: 'クリアイエロー', img: 'LUKIA_color3.jpg', bg: 'linear-gradient(135deg, #eab308, #854d0e)' },
-          { name: 'レッドアイグロー', img: 'LUKIA_color4.jpg', bg: 'linear-gradient(135deg, #ef4444, #991b1b)' }
+          { name: 'アーバングリーン', img: 'LUKIA_color1.jpg', detailImg: 'LUKIA_color1.jpg', bg: 'linear-gradient(135deg, #22c55e, #15803d)' },
+          { name: 'ブラックプラム', img: 'LUKIA_color2.jpg', detailImg: 'LUKIA_color2.jpg', bg: 'linear-gradient(135deg, #18181b, #3f3f46)' },
+          { name: 'クリアイエロー', img: 'LUKIA_color3.jpg', detailImg: 'LUKIA_color3.jpg', bg: 'linear-gradient(135deg, #eab308, #854d0e)' },
+          { name: 'レッドアイグロー', img: 'LUKIA_color4.jpg', detailImg: 'LUKIA_color4.jpg', bg: 'linear-gradient(135deg, #ef4444, #991b1b)' }
         ]
       }
     };
@@ -402,7 +402,10 @@
         (function(col) {
           var card = document.createElement('div');
           card.className = 'color-card';
-          card.onclick = function() { selectColor(col.img); };
+          
+          /* クリック時に detailImg （設定がなければ img ）を表示 */
+          var targetImage = col.detailImg || col.img;
+          card.onclick = function() { selectColor(targetImage); };
           
           card.innerHTML = 
             '<div class="color-swatch">' +
@@ -424,9 +427,12 @@
     function changeMainImage(imageSrc) {
       var heroImg = document.getElementById('hero-img');
       if (!heroImg) return;
-      heroImg.src = imageSrc;
-      heroImg.style.display = 'block';
-      heroImg.style.opacity = '1';
+      heroImg.style.opacity = '0';
+      setTimeout(function() {
+        heroImg.src = imageSrc;
+        heroImg.style.display = 'block';
+        heroImg.style.opacity = '1';
+      }, 150);
     }
 
     function init() {
