@@ -239,19 +239,19 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      gap: 12px;
-      padding: 30px 20px;
+      gap: 14px;
+      padding: 36px 20px;
       font-size: 0.75rem;
       color: #555;
       border-top: 1px solid rgba(255, 255, 255, 0.05);
     }
     .footer-logo {
-      height: 36px; /* 控えめで上品なサイズ感 */
+      height: 52px; /* 少し大きめに調整 (36px -> 52px) */
       width: auto;
       object-fit: contain;
-      /* 白背景透過＆webページにマッチしたグレー文字にブレンド */
+      /* 白背景透過＆webページにマッチした色合い */
       mix-blend-mode: screen;
-      filter: invert(1) brightness(0.65) opacity(0.85);
+      filter: invert(1) brightness(0.7) opacity(0.9);
       transition: opacity 0.3s ease;
     }
     .footer-logo:hover {
@@ -390,53 +390,4 @@
       document.getElementById('fallback-catch').innerText = data.catch;
 
       document.getElementById('spec-length').innerText = data.length;
-      document.getElementById('spec-weight').innerText = data.weight;
-      document.getElementById('spec-type').innerText = data.type;
-      document.getElementById('spec-hook').innerText = data.hook;
-
-      var colorGrid = document.getElementById('color-grid');
-      colorGrid.innerHTML = '';
-      
-      for (var j = 0; j < data.colors.length; j++) {
-        (function(col) {
-          var card = document.createElement('div');
-          card.className = 'color-card';
-          card.onclick = function() { selectColor(col.img); };
-          
-          card.innerHTML = 
-            '<div class="color-swatch">' +
-              '<img src="' + col.img + '" alt="' + col.name + '" onerror="this.style.display=\'none\'; this.nextElementSibling.style.display=\'flex\';">' +
-              '<div class="color-fallback-box" style="background:' + col.bg + ';">' + col.name + '</div>' +
-            '</div>' +
-            '<div class="color-name">' + col.name + '</div>';
-          
-          colorGrid.appendChild(card);
-        })(data.colors[j]);
-      }
-    }
-
-    function selectColor(imageSrc) {
-      changeMainImage(imageSrc);
-      document.getElementById('hero-section').scrollIntoView({ behavior: 'smooth' });
-    }
-
-    function changeMainImage(imageSrc) {
-      var heroImg = document.getElementById('hero-img');
-      if (!heroImg) return;
-      heroImg.src = imageSrc;
-      heroImg.style.display = 'block';
-      heroImg.style.opacity = '1';
-    }
-
-    function init() {
-      switchBrand('lukia', null);
-    }
-
-    if (document.readyState === 'interactive' || document.readyState === 'complete') {
-      init();
-    } else {
-      document.addEventListener('DOMContentLoaded', init);
-    }
-  </script>
-</body>
-</html>
+      document.getElementById
