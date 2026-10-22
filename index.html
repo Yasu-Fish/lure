@@ -36,26 +36,19 @@
       border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     }
     
-    /* 魚の形だけをくり抜いて綺麗なグラデーション表示にする設定 */
+    /* 左上ロゴ（白背景を自動透過して魚イラストと文字をはっきり表示） */
     .brand-logo-container {
       display: flex;
       align-items: center;
       height: 100%;
     }
-    .brand-logo-mask {
-      width: 110px;
+    .brand-logo-img {
       height: 38px;
-      background: linear-gradient(135deg, #a855f7, #22d3ee);
-      -webkit-mask-image: url('logo.jpg');
-      mask-image: url('logo.jpg');
-      -webkit-mask-size: contain;
-      mask-size: contain;
-      -webkit-mask-repeat: no-repeat;
-      mask-repeat: no-repeat;
-      -webkit-mask-position: center;
-      mask-position: center;
-      filter: drop-shadow(0 0 6px rgba(34, 211, 238, 0.6));
-      mix-blend-mode: screen;
+      width: auto;
+      object-fit: contain;
+      /* 白背景を消して、線画を白〜シアンの明るい色に変えて浮かび上がらせるフィルタ */
+      filter: invert(1) hue-rotate(180deg) brightness(1.8) contrast(1.2) drop-shadow(0 0 5px rgba(34, 211, 238, 0.8));
+      mix-blend-mode: screen; /* 白背景を完全に消去して黒背景になじませる */
     }
 
     /* 切り替えタブ */
@@ -241,9 +234,9 @@
 
   <!-- ヘッダー -->
   <header>
-    <!-- 左上くり抜きロゴ -->
+    <!-- 左上ロゴ画像表示部分 -->
     <div class="brand-logo-container">
-      <div class="brand-logo-mask" title="BFL Logo"></div>
+      <img src="logo.jpg" alt="BFL Logo" class="brand-logo-img" onerror="this.onerror=null; this.src='Gemini_Generated_Image_kqjzlpkqjzlpkqjz.jpg';">
     </div>
 
     <div class="tab-switcher">
