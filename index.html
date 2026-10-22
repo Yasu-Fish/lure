@@ -36,20 +36,31 @@
       border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     }
     
-    /* ロゴ（白ラインに着色＆グラデーション発光） */
+    /* ロゴ設定（白背景を完全に消去し、色をつけて大きく表示） */
     .brand-logo-container {
       display: flex;
       align-items: center;
       height: 100%;
     }
     .brand-logo-img {
-      height: 48px;
+      height: 44px;
       width: auto;
-      max-width: 160px;
+      max-width: 180px;
       object-fit: contain;
-      mix-blend-mode: screen;
-      /* 白いラインにパープル〜シアン系のカラーを着色しネオン風に発光させる設定 */
-      filter: sepia(1) hue-rotate(220deg) saturate(5) brightness(1.2) drop-shadow(0 0 8px rgba(168, 85, 247, 0.9)) drop-shadow(0 0 3px rgba(34, 211, 238, 0.8));
+      /* 白背景を完全に消し、線画に紫〜青のグラデーション発光を適用 */
+      filter: invert(1) sepia(1) saturate(10) hue-rotate(220deg) brightness(1.5) drop-shadow(0 0 8px rgba(168, 85, 247, 0.8));
+      mix-blend-mode: color-dodge;
+    }
+
+    /* スマホ画面用のロゴ・ヘッダー最適化 */
+    @media (max-width: 768px) {
+      header {
+        padding: 0 12px;
+      }
+      .brand-logo-img {
+        height: 38px;
+        max-width: 150px;
+      }
     }
 
     /* 切り替えタブ */
