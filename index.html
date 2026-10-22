@@ -36,37 +36,30 @@
       border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     }
     
-    /* PC表示用のロゴ設定 */
+    /* ロゴ設定（崩れを防ぎ、PC・スマホともに綺麗にヘッダー枠内へ配置） */
     .brand-logo-container {
       display: flex;
       align-items: center;
-      justify-content: flex-start;
       height: 100%;
-      width: 160px;
-      overflow: hidden;
     }
     .brand-logo-img {
-      height: 80px;
+      height: 36px;
       width: auto;
+      max-width: 140px;
       object-fit: contain;
-      transform: scale(1.4);
-      transform-origin: left center;
-      /* 白背景透過＆グラデーション着色 */
-      filter: invert(1) sepia(1) saturate(10) hue-rotate(220deg) brightness(1.6) drop-shadow(0 0 8px rgba(168, 85, 247, 0.9));
-      mix-blend-mode: color-dodge;
+      /* 白背景透過＆鮮やかなパープル〜シアン発光 */
+      mix-blend-mode: screen;
+      filter: invert(1) hue-rotate(220deg) brightness(1.8) contrast(1.2) drop-shadow(0 0 6px rgba(168, 85, 247, 0.8));
     }
 
-    /* スマホ画面用のロゴサイズ調整（半分の大きさに縮小） */
+    /* スマホ画面でのロゴ微調整 */
     @media (max-width: 768px) {
       header {
         padding: 0 12px;
       }
-      .brand-logo-container {
-        width: 100px; /* 枠の幅をコンパクトに */
-      }
       .brand-logo-img {
-        height: 50px; /* 高さを半分に縮小 */
-        transform: scale(1.0); /* 拡大率を半分の1.0に変更 */
+        height: 28px;
+        max-width: 110px;
       }
     }
 
@@ -343,76 +336,3 @@
         hook: '#8',
         fallbackBg: 'radial-gradient(circle, #064e3b 0%, #0b0c10 100%)',
         fallbackColor: '#6ee7b7',
-        colors: [
-          { name: 'アーバングリーン', img: 'LUKIA_color1.jpg', detailImg: 'LUKIA_color1.jpg', bg: 'linear-gradient(135deg, #22c55e, #86efac)' },
-          { name: 'ブラックプラム', img: 'LUKIA_color2.jpg', detailImg: 'LUKIA_color2.jpg', bg: 'linear-gradient(135deg, #18181b, #52525b)' },
-          { name: 'クリアイエロー', img: 'LUKIA_color3.jpg', detailImg: 'LUKIA_color3.jpg', bg: 'linear-gradient(135deg, #84cc16, #d9f99d)' },
-          { name: 'レッドアイグロー', img: 'LUKIA_color4.jpg', detailImg: 'LUKIA_color4.jpg', bg: 'linear-gradient(135deg, #e2e8f0, #ffffff)' }
-        ]
-      }
-    };
-
-    function switchBrand(brandKey, evt) {
-      const data = brandData[brandKey];
-      
-      document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
-      if (evt && evt.target) {
-        evt.target.classList.add('active');
-      } else {
-        const activeBtn = document.getElementById(`btn-${brandKey}`);
-        if (activeBtn) activeBtn.classList.add('active');
-      }
-
-      changeMainImage(data.imgSrc);
-
-      const fallback = document.getElementById('hero-fallback');
-      fallback.style.display = 'none';
-      fallback.style.background = data.fallbackBg;
-      document.getElementById('fallback-title').innerText = data.title;
-      document.getElementById('fallback-title').style.color = data.fallbackColor;
-      document.getElementById('fallback-catch').innerText = data.catch;
-
-      document.getElementById('spec-length').innerText = data.length;
-      document.getElementById('spec-weight').innerText = data.weight;
-      document.getElementById('spec-type').innerText = data.type;
-      document.getElementById('spec-hook').innerText = data.hook;
-
-      const colorGrid = document.getElementById('color-grid');
-      colorGrid.innerHTML = '';
-      data.colors.forEach(col => {
-        const card = document.createElement('div');
-        card.className = 'color-card';
-        const targetImage = col.detailImg || col.img;
-        card.onclick = () => selectColor(targetImage);
-        
-        card.innerHTML = `
-          <div class="color-swatch">
-            <img src="${col.img}" alt="${col.name}" onerror="this.style.display='none';">
-          </div>
-          <div class="color-name">${col.name}</div>
-        `;
-        colorGrid.appendChild(card);
-      });
-    }
-
-    function selectColor(imageSrc) {
-      changeMainImage(imageSrc);
-      document.getElementById('hero-section').scrollIntoView({ behavior: 'smooth' });
-    }
-
-    function changeMainImage(imageSrc) {
-      const heroImg = document.getElementById('hero-img');
-      heroImg.style.opacity = '0';
-      setTimeout(() => {
-        heroImg.src = imageSrc;
-        heroImg.style.display = 'block';
-        heroImg.style.opacity = '1';
-      }, 150);
-    }
-
-    document.addEventListener('DOMContentLoaded', () => {
-      switchBrand('lukia', null);
-    });
-  </script>
-</body>
-</html>
