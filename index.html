@@ -31,35 +31,29 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 0 16px;
+      padding: 0 20px;
       z-index: 1000;
       border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     }
     
-    /* ロゴ（ヘッダー枠内にすっきり収まる安全な固定サイズ） */
-    .brand-logo-container {
-      display: flex;
-      align-items: center;
-      height: 100%;
-    }
-    .brand-logo-img {
-      height: 28px; /* ヘッダー内に余裕をもって収まる高さ */
-      width: auto;
-      max-width: 100px;
-      object-fit: contain;
-      /* 白背景を自動透過して綺麗な色合いで表示 */
-      mix-blend-mode: screen;
-      filter: invert(1) hue-rotate(220deg) brightness(1.8) contrast(1.2) drop-shadow(0 0 5px rgba(168, 85, 247, 0.8));
+    /* 元のブランドタイトル（グラデーションテキスト） */
+    .brand-title {
+      font-size: 1.1rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+      background: linear-gradient(135deg, #a855f7, #22d3ee);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
     }
 
-    /* スマホ画面での表示（PC同様に小さく固定） */
+    /* スマホ画面での表示調整 */
     @media (max-width: 768px) {
       header {
-        padding: 0 12px;
+        padding: 0 16px;
       }
-      .brand-logo-img {
-        height: 24px;
-        max-width: 80px;
+      .brand-title {
+        font-size: 0.95rem;
+        letter-spacing: 1px;
       }
     }
 
@@ -197,4 +191,118 @@
     .color-card {
       background: rgba(255, 255, 255, 0.03);
       border: 1px solid rgba(255, 255, 255, 0.08);
-      border-radius
+      border-radius: 12px;
+      padding: 12px;
+      text-align: center;
+      cursor: pointer;
+      transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+    .color-card:hover {
+      transform: translateY(-4px);
+      border-color: #a855f7;
+      box-shadow: 0 4px 15px rgba(168, 85, 247, 0.3);
+    }
+    .color-swatch {
+      width: 100%;
+      height: 120px;
+      border-radius: 8px;
+      margin-bottom: 10px;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: #1a1d24;
+    }
+    .color-swatch img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      border-radius: 8px;
+      display: block;
+    }
+    .color-name {
+      font-size: 0.85rem;
+      font-weight: 600;
+    }
+
+    /* フッター */
+    footer {
+      text-align: center;
+      padding: 20px;
+      font-size: 0.75rem;
+      color: #555;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ヘッダー -->
+  <header>
+    <div class="brand-title">Lure Information</div>
+
+    <div class="tab-switcher">
+      <button class="tab-btn" id="btn-amy" onclick="switchBrand('amy', event)">AMY</button>
+      <button class="tab-btn" id="btn-lukia" onclick="switchBrand('lukia', event)">LUKIA</button>
+    </div>
+  </header>
+
+  <!-- 全画面ポスターヒーロー -->
+  <div class="hero-container" id="hero-section">
+    <img id="hero-img" class="hero-bg" src="LUKIA_3.jpg" alt="Lure Poster" onerror="this.style.display='none'; document.getElementById('hero-fallback').style.display='flex';">
+    
+    <div id="hero-fallback" class="hero-bg" style="display:none; flex-direction:column; justify-content:center; align-items:center; background: radial-gradient(circle, #064e3b 0%, #0b0c10 100%); text-align:center; padding:20px;">
+      <h1 id="fallback-title" style="font-size: 3rem; letter-spacing:4px; margin-bottom:10px; background: linear-gradient(135deg, #6ee7b7, #3b82f6); -webkit-background-clip:text; -webkit-text-fill-color:transparent;">LUKIA</h1>
+      <p id="fallback-catch" style="font-size: 1rem; color:#6ee7b7;">都会の明暗に潜む一筋の光</p>
+    </div>
+
+    <div class="scroll-indicator">
+      <span>SCROLL FOR DETAILS</span>
+      <svg viewBox="0 0 24 24"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6z"/></svg>
+    </div>
+  </div>
+
+  <!-- コンテンツ詳細 -->
+  <div class="container">
+    
+    <!-- スペック紹介 -->
+    <h2 class="section-title">SPECIFICATION</h2>
+    <div class="spec-card">
+      <div class="spec-row">
+        <span class="spec-label">Length</span>
+        <span class="spec-value" id="spec-length">60mm</span>
+      </div>
+      <div class="spec-row">
+        <span class="spec-label">Weight</span>
+        <span class="spec-value" id="spec-weight">9.1g</span>
+      </div>
+      <div class="spec-row">
+        <span class="spec-label">Type</span>
+        <span class="spec-value" id="spec-type">シンキングバイブ</span>
+      </div>
+      <div class="spec-row">
+        <span class="spec-label">Hook</span>
+        <span class="spec-value" id="spec-hook">#8</span>
+      </div>
+    </div>
+
+    <!-- カラーバリエーション -->
+    <h2 class="section-title">COLOR VARIATION</h2>
+    <div class="color-grid" id="color-grid">
+      <!-- JavaScriptで動的生成 -->
+    </div>
+
+  </div>
+
+  <footer>
+    &copy; 2026 Lure Information. All Rights Reserved.
+  </footer>
+
+  <script>
+    const brandData = {
+      amy: {
+        imgSrc: 'AMY_3.jpg',
+        title: 'AMY',
+        catch: 'ナチュラルな微弱波動でターゲットを狙い打つエイミー',
+        length: '72mm',
