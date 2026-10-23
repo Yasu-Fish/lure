@@ -149,6 +149,21 @@
       border-radius: 2px;
     }
 
+    /* サブブランドポスター (AMY Slim用) */
+    .sub-poster-card {
+      width: 100%;
+      border-radius: 16px;
+      overflow: hidden;
+      margin: 60px 0 40px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    }
+    .sub-poster-img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
     /* スペック表 */
     .spec-card {
       background: rgba(255, 255, 255, 0.03);
@@ -289,8 +304,8 @@
   <!-- コンテンツ詳細 -->
   <div class="container">
     
-    <!-- スペック紹介 -->
-    <h2 class="section-title">SPECIFICATION</h2>
+    <!-- メイン スペック紹介 -->
+    <h2 class="section-title" id="main-spec-title">SPECIFICATION</h2>
     <div class="spec-card">
       <div class="spec-row">
         <span class="spec-label">Length</span>
@@ -310,10 +325,44 @@
       </div>
     </div>
 
-    <!-- カラーバリエーション -->
+    <!-- メイン カラーバリエーション -->
     <h2 class="section-title">COLOR VARIATION</h2>
     <div class="color-grid" id="color-grid">
       <!-- JavaScriptで動的生成 -->
+    </div>
+
+    <!-- AMY Slim用セクション (AMY選択時のみ動的表示) -->
+    <div id="amy-slim-section" style="display: none;">
+      
+      <div class="sub-poster-card">
+        <img src="AMY_Slim.jpg" alt="AMY Slim Poster" class="sub-poster-img">
+      </div>
+
+      <h2 class="section-title">AMY Slim SPECIFICATION</h2>
+      <div class="spec-card">
+        <div class="spec-row">
+          <span class="spec-label">Length</span>
+          <span class="spec-value">85mm</span>
+        </div>
+        <div class="spec-row">
+          <span class="spec-label">Weight</span>
+          <span class="spec-value">10.5g</span>
+        </div>
+        <div class="spec-row">
+          <span class="spec-label">Type</span>
+          <span class="spec-value">スリムシンキングペンシル</span>
+        </div>
+        <div class="spec-row">
+          <span class="spec-label">Hook</span>
+          <span class="spec-value">#8</span>
+        </div>
+      </div>
+
+      <h2 class="section-title">AMY Slim COLOR VARIATION</h2>
+      <div class="color-grid" id="amy-slim-color-grid">
+        <!-- JavaScriptで動的生成 -->
+      </div>
+
     </div>
 
   </div>
@@ -336,11 +385,14 @@
         fallbackBg: 'radial-gradient(circle, #2e1065 0%, #0b0c10 100%)',
         fallbackColor: '#e9d5ff',
         colors: [
-          /* detailImg にクリック時にメインで開きたい別画像ファイルを指定できます */
           { name: 'アーバングリーン', img: 'AMY_color1.jpg', detailImg: 'AMY_color1.jpg', bg: 'linear-gradient(135deg, #22c55e, #15803d)' },
           { name: 'ブラックプラム', img: 'AMY_color2.jpg', detailImg: 'AMY_color2.jpg', bg: 'linear-gradient(135deg, #18181b, #3f3f46)' },
           { name: 'クリアパープル', img: 'AMY_color3.jpg', detailImg: 'AMY_color3.jpg', bg: 'linear-gradient(135deg, #a855f7, #6b21a8)' },
-          { name: 'レッドアイグロー', img: 'AMY_color4.jpg', detailImg: 'AMY_color4_large.jpg', bg: 'linear-gradient(135deg, #ef4444, #991b1b)' }
+          { name: 'レッドアイグロー', img: 'AMY_color4.jpg', detailImg: 'AMY_color4.jpg', bg: 'linear-gradient(135deg, #ef4444, #991b1b)' }
+        ],
+        slimColors: [
+          { name: 'アーバングリーン', img: 'AMY_Slim_c1.JPG', detailImg: 'AMY_Slim_c1.JPG', bg: 'linear-gradient(135deg, #22c55e, #15803d)' },
+          { name: 'クリアピンク', img: 'AMY_Slim_c2.JPG', detailImg: 'AMY_Slim_c2.JPG', bg: 'linear-gradient(135deg, #ec4899, #be185d)' }
         ]
       },
       lukia: {
@@ -395,6 +447,7 @@
       document.getElementById('spec-type').innerText = data.type;
       document.getElementById('spec-hook').innerText = data.hook;
 
+      // メインのカラーグリッドを生成
       var colorGrid = document.getElementById('color-grid');
       colorGrid.innerHTML = '';
       
@@ -403,7 +456,6 @@
           var card = document.createElement('div');
           card.className = 'color-card';
           
-          /* クリック時に detailImg （設定がなければ img ）を表示 */
           var targetImage = col.detailImg || col.img;
           card.onclick = function() { selectColor(targetImage); };
           
@@ -416,6 +468,35 @@
           
           colorGrid.appendChild(card);
         })(data.colors[j]);
+      }
+
+      // AMY Slim セクションの制御
+      var slimSection = document.getElementById('amy-slim-section');
+      if (brandKey === 'amy' && data.slimColors) {
+        slimSection.style.display = 'block';
+        var slimGrid = document.getElementById('amy-slim-color-grid');
+        slimGrid.innerHTML = '';
+
+        for (var k = 0; k < data.slimColors.length; k++) {
+          (function(col) {
+            var card = document.createElement('div');
+            card.className = 'color-card';
+            
+            var targetImage = col.detailImg || col.img;
+            card.onclick = function() { selectColor(targetImage); };
+            
+            card.innerHTML = 
+              '<div class="color-swatch">' +
+                '<img src="' + col.img + '" alt="' + col.name + '" onerror="this.style.display=\'none\'; this.nextElementSibling.style.display=\'flex\';">' +
+                '<div class="color-fallback-box" style="background:' + col.bg + ';">' + col.name + '</div>' +
+              '</div>' +
+              '<div class="color-name">' + col.name + '</div>';
+            
+            slimGrid.appendChild(card);
+          })(data.slimColors[k]);
+        }
+      } else {
+        slimSection.style.display = 'none';
       }
     }
 
