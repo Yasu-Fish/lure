@@ -211,7 +211,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      background-color: #0b0c10;
+      background-color: #1a1d24;
       position: relative;
     }
     .color-swatch img {
@@ -221,12 +221,6 @@
       object-position: center;
       border-radius: 8px;
       display: block;
-    }
-
-    /* AMY Slim 白背景画像を黒背景になじませる特殊ブレンド処理 */
-    .color-swatch img.slim-dark-bg {
-      mix-blend-mode: difference;
-      filter: invert(1) contrast(1.1) brightness(1.1);
     }
 
     .color-fallback-box {
@@ -302,7 +296,7 @@
   <div class="container">
     
     <!-- メイン スペック紹介 -->
-    <h2 class="section-title" id="main-spec-title">AMY SPECIFICATION</h2>
+    <h2 class="section-title" id="main-spec-title">SPECIFICATION</h2>
     <div class="spec-card">
       <div class="spec-row">
         <span class="spec-label">Length</span>
@@ -323,7 +317,7 @@
     </div>
 
     <!-- メイン カラーバリエーション -->
-    <h2 class="section-title">AMY COLOR VARIATION</h2>
+    <h2 class="section-title">COLOR VARIATION</h2>
     <div class="color-grid" id="color-grid">
       <!-- JavaScriptで動的生成 -->
     </div>
@@ -392,6 +386,7 @@
           { name: 'レッドアイグロー', img: 'AMY_color4.jpg', detailImg: 'AMY_color4.jpg', bg: 'linear-gradient(135deg, #ef4444, #991b1b)' }
         ],
         slimColors: [
+          /* 正しいファイル名・色の順序へ完全統一 */
           { name: 'アーバングリーン', img: 'AMY_Slim_c1.JPG', altImg: 'AMY_Slim_c1.jpg', bg: 'linear-gradient(135deg, #22c55e, #15803d)' },
           { name: 'クリアピンク', img: 'AMY_Slim_c2.JPG', altImg: 'AMY_Slim_c2.jpg', bg: 'linear-gradient(135deg, #ec4899, #be185d)' }
         ]
@@ -486,7 +481,7 @@
             
             card.innerHTML = 
               '<div class="color-swatch">' +
-                '<img src="' + col.img + '" class="slim-dark-bg" alt="' + col.name + '" onerror="this.onerror=null; if(\''+col.altImg+'\'){this.src=\''+col.altImg+'\';} else {this.style.display=\'none\'; this.nextElementSibling.style.display=\'flex\';}">' +
+                '<img src="' + col.img + '" alt="' + col.name + '" onerror="this.onerror=null; if(\''+col.altImg+'\'){this.src=\''+col.altImg+'\';} else {this.style.display=\'none\'; this.nextElementSibling.style.display=\'flex\';}">' +
                 '<div class="color-fallback-box" style="background:' + col.bg + ';">' + col.name + '</div>' +
               '</div>' +
               '<div class="color-name">' + col.name + '</div>';
