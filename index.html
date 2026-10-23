@@ -103,10 +103,10 @@
       transition: opacity 0.3s ease;
     }
 
-    /* 拡大画像の上に表示されるルアー名ラベル（初期は非表示） */
+    /* 拡大画像の上に表示されるルアー名ラベル */
     .hero-lure-title {
       position: absolute;
-      top: 40px;
+      top: 15%;
       left: 50%;
       transform: translateX(-50%);
       font-size: 2.2rem;
@@ -124,10 +124,11 @@
       display: none;
       opacity: 0;
     }
+    /* スマホ画面向けの表示位置調整（ルアー画像のすぐ上にぴったり配置） */
     @media (max-width: 768px) {
       .hero-lure-title {
-        font-size: 1.6rem;
-        top: 25px;
+        font-size: 1.5rem;
+        top: 28%; /* 画像の上のすぐ近くに配置 */
         letter-spacing: 2px;
       }
     }
@@ -243,7 +244,7 @@
       background-color: #0b0c10;
       position: relative;
     }
-    /* 通常 AMY / LUKIA（デフォルト表示） */
+    /* 通常 AMY / LUKIA */
     .color-swatch img {
       width: 100%;
       height: 100%;
@@ -252,7 +253,7 @@
       border-radius: 8px;
       display: block;
     }
-    /* AMY Slim 専用：左右ギリギリまで表示 */
+    /* AMY Slim 専用 */
     .color-swatch img.slim-img {
       width: 100%;
       height: 100%;
@@ -540,7 +541,6 @@
 
     function selectColor(imageSrc, lureLabel) {
       changeMainImage(imageSrc, lureLabel);
-      /* スクロール位置ズレ防止：最上部（top: 0）に確実に移動 */
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
