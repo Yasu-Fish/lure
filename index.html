@@ -214,7 +214,7 @@
       background-color: #0b0c10;
       position: relative;
     }
-    /* 通常 AMY / LUKIA（元の元の表示サイズ：cover） */
+    /* 通常 AMY / LUKIA（デフォルト表示） */
     .color-swatch img {
       width: 100%;
       height: 100%;
@@ -223,11 +223,12 @@
       border-radius: 8px;
       display: block;
     }
-    /* AMY Slim 専用サイズ設定 */
+    /* AMY Slim 専用：左右ギリギリまで最大限に大きく表示 */
     .color-swatch img.slim-img {
-      width: 92%;
-      height: 92%;
-      object-fit: contain;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
     }
 
     .color-fallback-box {
