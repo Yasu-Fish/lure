@@ -279,7 +279,7 @@
 
   <!-- メイン 全画面ポスターヒーロー -->
   <div class="hero-container main-hero" id="hero-section">
-    <img id="hero-img" class="hero-bg" src="LUKIA_3.jpg" alt="Lure Poster" onerror="this.style.display='none'; document.getElementById('hero-fallback').style.display='flex';">
+    <img id="hero-img" class="hero-bg" src="LUKIA_3.jpg" alt="Lure Poster" onerror="handleMainImgError(this);">
     
     <div id="hero-fallback" class="hero-bg" style="display:none; flex-direction:column; justify-content:center; align-items:center; background: radial-gradient(circle, #064e3b 0%, #0b0c10 100%); text-align:center; padding:20px;">
       <h1 id="fallback-title" style="font-size: 3rem; letter-spacing:4px; margin-bottom:10px; background: linear-gradient(135deg, #6ee7b7, #3b82f6); -webkit-background-clip:text; -webkit-text-fill-color:transparent;">LUKIA</h1>
@@ -467,7 +467,7 @@
         })(data.colors[j]);
       }
 
-      // AMY Slim セクション制御（標準表示処理に統一）
+      // AMY Slim セクション制御
       var slimWrapper = document.getElementById('amy-slim-wrapper');
       if (brandKey === 'amy' && data.slimColors) {
         slimWrapper.style.display = 'block';
@@ -504,12 +504,30 @@
     function changeMainImage(imageSrc) {
       var heroImg = document.getElementById('hero-img');
       if (!heroImg) return;
+      heroImg.setAttribute('data-alt-tried', 'false');
       heroImg.style.opacity = '0';
       setTimeout(function() {
         heroImg.src = imageSrc;
         heroImg.style.display = 'block';
         heroImg.style.opacity = '1';
       }, 150);
+    }
+
+    function handleMainImgError(img) {
+      var tried = img.getAttribute('data-alt-tried');
+      if (tried !== 'true') {
+        img.setAttribute('data-alt-tried', 'true');
+        if (img.src.indexOf('.JPG') !== -1) {
+          img.src = img.src.replace('.JPG', '.jpg');
+          return;
+        } else if (img.src.indexOf('.jpg') !== -1) {
+          img.src = img.src.replace('.jpg', '.JPG');
+          return;
+        }
+      }
+      img.style.display = 'none';
+      var fallback = document.getElementById('hero-fallback');
+      if (fallback) fallback.style.display = 'flex';
     }
 
     function init() {
