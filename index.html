@@ -76,17 +76,22 @@
       box-shadow: 0 2px 10px rgba(126, 34, 206, 0.5);
     }
 
-    /* ヒーローポスター */
+    /* ヒーローポスター（メイン・サブ共通で完全に同サイズ設定） */
     .hero-container {
       position: relative;
       width: 100%;
       height: calc(100vh - 60px);
-      margin-top: 60px;
       display: flex;
       justify-content: center;
       align-items: center;
       overflow: hidden;
       padding: 0;
+    }
+    .main-hero {
+      margin-top: 60px;
+    }
+    .sub-hero {
+      margin-top: 40px;
     }
     .hero-bg {
       width: 100%;
@@ -130,7 +135,7 @@
     .container {
       max-width: 600px;
       margin: 0 auto;
-      padding: 40px 20px 80px;
+      padding: 40px 20px 60px;
     }
     .section-title {
       font-size: 1.4rem;
@@ -147,25 +152,6 @@
       background: #a855f7;
       margin: 8px auto 0;
       border-radius: 2px;
-    }
-
-    /* サブブランドポスター (AMY Slim用：メインポスターと同等サイズに調整) */
-    .sub-poster-card {
-      width: 100%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      margin: 60px 0 40px;
-      overflow: hidden;
-    }
-    .sub-poster-img {
-      width: 100%;
-      max-width: 100%;
-      height: auto;
-      max-height: 92vh;
-      object-fit: contain;
-      object-position: center;
-      display: block;
     }
 
     /* スペック表 */
@@ -297,8 +283,8 @@
     </div>
   </header>
 
-  <!-- 全画面ポスターヒーロー -->
-  <div class="hero-container" id="hero-section">
+  <!-- メイン 全画面ポスターヒーロー -->
+  <div class="hero-container main-hero" id="hero-section">
     <img id="hero-img" class="hero-bg" src="LUKIA_3.jpg" alt="Lure Poster" onerror="this.style.display='none'; document.getElementById('hero-fallback').style.display='flex';">
     
     <div id="hero-fallback" class="hero-bg" style="display:none; flex-direction:column; justify-content:center; align-items:center; background: radial-gradient(circle, #064e3b 0%, #0b0c10 100%); text-align:center; padding:20px;">
@@ -312,7 +298,7 @@
     </div>
   </div>
 
-  <!-- コンテンツ詳細 -->
+  <!-- コンテンツ詳細 (AMY/LUKIA共通) -->
   <div class="container">
     
     <!-- メイン スペック紹介 -->
@@ -342,13 +328,18 @@
       <!-- JavaScriptで動的生成 -->
     </div>
 
-    <!-- AMY Slim用セクション -->
-    <div id="amy-slim-section" style="display: none;">
-      
-      <div class="sub-poster-card">
-        <img src="AMY_Slim.jpg" alt="AMY Slim Poster" class="sub-poster-img" onerror="this.src='AMY_Slim.JPG'; this.onerror=null;">
-      </div>
+  </div>
 
+  <!-- AMY Slim用 セクション（メインポスターと同等の全幅ポスターエリア） -->
+  <div id="amy-slim-wrapper" style="display: none;">
+    
+    <!-- AMY Slim 全画面ポスターヒーロー -->
+    <div class="hero-container sub-hero">
+      <img src="AMY_Slim.jpg" alt="AMY Slim Poster" class="hero-bg" onerror="this.src='AMY_Slim.JPG'; this.onerror=null;">
+    </div>
+
+    <!-- AMY Slim 詳細コンテンツ -->
+    <div class="container">
       <h2 class="section-title">AMY Slim SPECIFICATION</h2>
       <div class="spec-card">
         <div class="spec-row">
@@ -373,7 +364,6 @@
       <div class="color-grid" id="amy-slim-color-grid">
         <!-- JavaScriptで動的生成 -->
       </div>
-
     </div>
 
   </div>
@@ -481,9 +471,9 @@
       }
 
       // AMY Slim セクション制御
-      var slimSection = document.getElementById('amy-slim-section');
+      var slimWrapper = document.getElementById('amy-slim-wrapper');
       if (brandKey === 'amy' && data.slimColors) {
-        slimSection.style.display = 'block';
+        slimWrapper.style.display = 'block';
         var slimGrid = document.getElementById('amy-slim-color-grid');
         slimGrid.innerHTML = '';
 
@@ -505,7 +495,7 @@
           })(data.slimColors[k]);
         }
       } else {
-        slimSection.style.display = 'none';
+        slimWrapper.style.display = 'none';
       }
     }
 
