@@ -223,6 +223,12 @@
       display: block;
     }
 
+    /* 白背景画像を黒背景へ自然に溶け込ませる指定 */
+    .color-swatch img.blend-dark {
+      mix-blend-mode: multiply;
+      filter: contrast(1.1) brightness(0.95);
+    }
+
     .color-fallback-box {
       display: none;
       width: 100%;
@@ -437,7 +443,6 @@
       document.getElementById('fallback-title').style.color = data.fallbackColor;
       document.getElementById('fallback-catch').innerText = data.catch;
 
-      // 見出しタイトルの動的変更 (AMY SPECIFICATION / AMY COLOR VARIATION)
       document.getElementById('main-spec-title').innerText = data.title + ' SPECIFICATION';
       document.getElementById('main-color-title').innerText = data.title + ' COLOR VARIATION';
 
@@ -484,7 +489,7 @@
             
             card.innerHTML = 
               '<div class="color-swatch">' +
-                '<img src="' + col.img + '" alt="' + col.name + '" onerror="this.onerror=null; if(\''+col.altImg+'\'){this.src=\''+col.altImg+'\';} else {this.style.display=\'none\'; this.nextElementSibling.style.display=\'flex\';}">' +
+                '<img src="' + col.img + '" class="blend-dark" alt="' + col.name + '" onerror="this.onerror=null; if(\''+col.altImg+'\'){this.src=\''+col.altImg+'\';} else {this.style.display=\'none\'; this.nextElementSibling.style.display=\'flex\';}">' +
                 '<div class="color-fallback-box" style="background:' + col.bg + ';">' + col.name + '</div>' +
               '</div>' +
               '<div class="color-name">' + col.name + '</div>';
