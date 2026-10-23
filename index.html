@@ -326,4 +326,220 @@
   </div>
 
   <!-- AMY Slim用 セクション -->
-  <div id="amy-slim-wrapper" style="
+  <div id="amy-slim-wrapper" style="display: none;">
+    
+    <!-- AMY Slim 全画面ポスターヒーロー -->
+    <div class="hero-container sub-hero">
+      <img src="AMY_Slim.jpg" alt="AMY Slim Poster" class="hero-bg" onerror="this.src='AMY_Slim.JPG'; this.onerror=null;">
+    </div>
+
+    <!-- AMY Slim 詳細コンテンツ -->
+    <div class="container">
+      <h2 class="section-title">AMY Slim SPECIFICATION</h2>
+      <div class="spec-card">
+        <div class="spec-row">
+          <span class="spec-label">Length</span>
+          <span class="spec-value">95mm</span>
+        </div>
+        <div class="spec-row">
+          <span class="spec-label">Weight</span>
+          <span class="spec-value">11.7g</span>
+        </div>
+        <div class="spec-row">
+          <span class="spec-label">Type</span>
+          <span class="spec-value">シンキングペンシル</span>
+        </div>
+        <div class="spec-row">
+          <span class="spec-label">Hook</span>
+          <span class="spec-value">#8</span>
+        </div>
+      </div>
+
+      <h2 class="section-title">AMY Slim COLOR VARIATION</h2>
+      <div class="color-grid" id="amy-slim-color-grid">
+        <!-- JavaScriptで動的生成 -->
+      </div>
+    </div>
+
+  </div>
+
+  <footer>
+    <img src="logo1.jpg" alt="BOTTOM FIELD LAB Logo" class="footer-logo" onerror="this.src='logo.jpg'; this.onerror=null;">
+    <div>&copy; 2026 Lure Information. All Rights Reserved.</div>
+  </footer>
+
+  <script>
+    var brandData = {
+      amy: {
+        imgSrc: 'AMY_3.jpg',
+        title: 'AMY',
+        catch: 'ナチュラルな微弱波動でターゲットを狙い打つエイミー',
+        length: '72mm',
+        weight: '8.0g',
+        type: 'シンキングペンシル',
+        hook: '#8',
+        fallbackBg: 'radial-gradient(circle, #2e1065 0%, #0b0c10 100%)',
+        fallbackColor: '#e9d5ff',
+        colors: [
+          { name: 'アーバングリーン', img: 'AMY_color1.jpg', detailImg: 'AMY_color1.jpg', bg: 'linear-gradient(135deg, #22c55e, #15803d)' },
+          { name: 'ブラックプラム', img: 'AMY_color2.jpg', detailImg: 'AMY_color2.jpg', bg: 'linear-gradient(135deg, #18181b, #3f3f46)' },
+          { name: 'クリアパープル', img: 'AMY_color3.jpg', detailImg: 'AMY_color3.jpg', bg: 'linear-gradient(135deg, #a855f7, #6b21a8)' },
+          { name: 'レッドアイグロー', img: 'AMY_color4.jpg', detailImg: 'AMY_color4.jpg', bg: 'linear-gradient(135deg, #ef4444, #991b1b)' }
+        ],
+        slimColors: [
+          { name: 'アーバングリーン', img: 'AMY_Slim_c1.JPG', altImg: 'AMY_Slim_c1.jpg', bg: 'linear-gradient(135deg, #22c55e, #15803d)' },
+          { name: 'クリアピンク', img: 'AMY_Slim_c2.JPG', altImg: 'AMY_Slim_c2.jpg', bg: 'linear-gradient(135deg, #ec4899, #be185d)' }
+        ]
+      },
+      lukia: {
+        imgSrc: 'LUKIA_3.jpg',
+        title: 'LUKIA',
+        catch: '都会の明暗に潜む一筋の光',
+        length: '60mm',
+        weight: '9.1g',
+        type: 'シンキングバイブ',
+        hook: '#8',
+        fallbackBg: 'radial-gradient(circle, #064e3b 0%, #0b0c10 100%)',
+        fallbackColor: '#6ee7b7',
+        colors: [
+          { name: 'アーバングリーン', img: 'LUKIA_color1.jpg', detailImg: 'LUKIA_color1.jpg', bg: 'linear-gradient(135deg, #22c55e, #15803d)' },
+          { name: 'ブラックプラム', img: 'LUKIA_color2.jpg', detailImg: 'LUKIA_color2.jpg', bg: 'linear-gradient(135deg, #18181b, #3f3f46)' },
+          { name: 'クリアイエロー', img: 'LUKIA_color3.jpg', detailImg: 'LUKIA_color3.jpg', bg: 'linear-gradient(135deg, #eab308, #854d0e)' },
+          { name: 'レッドアイグロー', img: 'LUKIA_color4.jpg', detailImg: 'LUKIA_color4.jpg', bg: 'linear-gradient(135deg, #ef4444, #991b1b)' }
+        ]
+      }
+    };
+
+    function switchBrand(brandKey, evt) {
+      var data = brandData[brandKey];
+      if (!data) return;
+      
+      var btns = document.querySelectorAll('.tab-btn');
+      for (var i = 0; i < btns.length; i++) {
+        btns[i].classList.remove('active');
+      }
+
+      if (evt && evt.target) {
+        evt.target.classList.add('active');
+      } else {
+        var activeBtn = document.getElementById('btn-' + brandKey);
+        if (activeBtn) activeBtn.classList.add('active');
+      }
+
+      changeMainImage(data.imgSrc);
+
+      var fallback = document.getElementById('hero-fallback');
+      if (fallback) {
+        fallback.style.display = 'none';
+        fallback.style.background = data.fallbackBg;
+      }
+      
+      document.getElementById('fallback-title').innerText = data.title;
+      document.getElementById('fallback-title').style.color = data.fallbackColor;
+      document.getElementById('fallback-catch').innerText = data.catch;
+
+      document.getElementById('main-spec-title').innerText = data.title + ' SPECIFICATION';
+      document.getElementById('main-color-title').innerText = data.title + ' COLOR VARIATION';
+
+      document.getElementById('spec-length').innerText = data.length;
+      document.getElementById('spec-weight').innerText = data.weight;
+      document.getElementById('spec-type').innerText = data.type;
+      document.getElementById('spec-hook').innerText = data.hook;
+
+      var colorGrid = document.getElementById('color-grid');
+      colorGrid.innerHTML = '';
+      
+      for (var j = 0; j < data.colors.length; j++) {
+        (function(col) {
+          var card = document.createElement('div');
+          card.className = 'color-card';
+          
+          var targetImage = col.detailImg || col.img;
+          card.onclick = function() { selectColor(targetImage); };
+          
+          card.innerHTML = 
+            '<div class="color-swatch">' +
+              '<img src="' + col.img + '" alt="' + col.name + '" onerror="this.style.display=\'none\'; this.nextElementSibling.style.display=\'flex\';">' +
+              '<div class="color-fallback-box" style="background:' + col.bg + ';">' + col.name + '</div>' +
+            '</div>' +
+            '<div class="color-name">' + col.name + '</div>';
+          
+          colorGrid.appendChild(card);
+        })(data.colors[j]);
+      }
+
+      // AMY Slim セクション制御
+      var slimWrapper = document.getElementById('amy-slim-wrapper');
+      if (brandKey === 'amy' && data.slimColors) {
+        slimWrapper.style.display = 'block';
+        var slimGrid = document.getElementById('amy-slim-color-grid');
+        slimGrid.innerHTML = '';
+
+        for (var k = 0; k < data.slimColors.length; k++) {
+          (function(col) {
+            var card = document.createElement('div');
+            card.className = 'color-card';
+            
+            card.onclick = function() { selectColor(col.img); };
+            
+            card.innerHTML = 
+              '<div class="color-swatch">' +
+                '<img src="' + col.img + '" alt="' + col.name + '" onerror="this.onerror=null; if(\''+col.altImg+'\'){this.src=\''+col.altImg+'\';} else {this.style.display=\'none\'; this.nextElementSibling.style.display=\'flex\';}">' +
+                '<div class="color-fallback-box" style="background:' + col.bg + ';">' + col.name + '</div>' +
+              '</div>' +
+              '<div class="color-name">' + col.name + '</div>';
+            
+            slimGrid.appendChild(card);
+          })(data.slimColors[k]);
+        }
+      } else {
+        slimWrapper.style.display = 'none';
+      }
+    }
+
+    function selectColor(imageSrc) {
+      changeMainImage(imageSrc);
+      document.getElementById('hero-section').scrollIntoView({ behavior: 'smooth' });
+    }
+
+    function changeMainImage(imageSrc) {
+      var heroImg = document.getElementById('hero-img');
+      if (!heroImg) return;
+      heroImg.setAttribute('data-alt-tried', 'false');
+      heroImg.style.opacity = '0';
+      setTimeout(function() {
+        heroImg.src = imageSrc;
+        heroImg.style.display = 'block';
+        heroImg.style.opacity = '1';
+      }, 150);
+    }
+
+    function handleMainImgError(img) {
+      var tried = img.getAttribute('data-alt-tried');
+      if (tried !== 'true') {
+        img.setAttribute('data-alt-tried', 'true');
+        if (img.src.indexOf('.JPG') !== -1) {
+          img.src = img.src.replace('.JPG', '.jpg');
+          return;
+        } else if (img.src.indexOf('.jpg') !== -1) {
+          img.src = img.src.replace('.jpg', '.JPG');
+          return;
+        }
+      }
+      img.style.display = 'none';
+      var fallback = document.getElementById('hero-fallback');
+      if (fallback) fallback.style.display = 'flex';
+    }
+
+    function init() {
+      switchBrand('lukia', null);
+    }
+
+    if (document.readyState === 'interactive' || document.readyState === 'complete') {
+      init();
+    } else {
+      document.addEventListener('DOMContentLoaded', init);
+    }
+  </script>
+</body>
+</html>
