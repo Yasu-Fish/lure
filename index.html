@@ -149,18 +149,22 @@
       border-radius: 2px;
     }
 
-    /* サブブランドポスター (AMY Slim用) */
+    /* サブブランドポスター (AMY Slim用：メインポスターと同等サイズに調整) */
     .sub-poster-card {
       width: 100%;
-      border-radius: 16px;
-      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
       margin: 60px 0 40px;
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+      overflow: hidden;
     }
     .sub-poster-img {
       width: 100%;
+      max-width: 100%;
       height: auto;
+      max-height: 92vh;
+      object-fit: contain;
+      object-position: center;
       display: block;
     }
 
@@ -221,7 +225,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      background-color: #1a1d24;
+      background-color: #0b0c10;
       position: relative;
     }
     .color-swatch img {
@@ -232,6 +236,13 @@
       border-radius: 8px;
       display: block;
     }
+
+    /* AMY Slim 用の白背景暗転スタイル */
+    .color-swatch img.darken-bg {
+      mix-blend-mode: multiply;
+      filter: contrast(1.1) brightness(0.95);
+    }
+
     .color-fallback-box {
       display: none;
       width: 100%;
@@ -331,11 +342,11 @@
       <!-- JavaScriptで動的生成 -->
     </div>
 
-    <!-- AMY Slim用セクション (AMY選択時のみ動的表示) -->
+    <!-- AMY Slim用セクション -->
     <div id="amy-slim-section" style="display: none;">
       
       <div class="sub-poster-card">
-        <img src="AMY_Slim.jpg" alt="AMY Slim Poster" class="sub-poster-img">
+        <img src="AMY_Slim.jpg" alt="AMY Slim Poster" class="sub-poster-img" onerror="this.src='AMY_Slim.JPG'; this.onerror=null;">
       </div>
 
       <h2 class="section-title">AMY Slim SPECIFICATION</h2>
@@ -391,8 +402,8 @@
           { name: 'レッドアイグロー', img: 'AMY_color4.jpg', detailImg: 'AMY_color4.jpg', bg: 'linear-gradient(135deg, #ef4444, #991b1b)' }
         ],
         slimColors: [
-          { name: 'アーバングリーン', img: 'AMY_Slim_c1.JPG', detailImg: 'AMY_Slim_c1.JPG', bg: 'linear-gradient(135deg, #22c55e, #15803d)' },
-          { name: 'クリアピンク', img: 'AMY_Slim_c2.JPG', detailImg: 'AMY_Slim_c2.JPG', bg: 'linear-gradient(135deg, #ec4899, #be185d)' }
+          { name: 'アーバングリーン', img: 'AMY_Slim_c1.JPG', altImg: 'AMY_Slim_c1.jpg', bg: 'linear-gradient(135deg, #22c55e, #15803d)' },
+          { name: 'クリアピンク', img: 'AMY_Slim_c2.JPG', altImg: 'AMY_Slim_c2.jpg', bg: 'linear-gradient(135deg, #ec4899, #be185d)' }
         ]
       },
       lukia: {
@@ -447,7 +458,6 @@
       document.getElementById('spec-type').innerText = data.type;
       document.getElementById('spec-hook').innerText = data.hook;
 
-      // メインのカラーグリッドを生成
       var colorGrid = document.getElementById('color-grid');
       colorGrid.innerHTML = '';
       
@@ -470,7 +480,7 @@
         })(data.colors[j]);
       }
 
-      // AMY Slim セクションの制御
+      // AMY Slim セクション制御
       var slimSection = document.getElementById('amy-slim-section');
       if (brandKey === 'amy' && data.slimColors) {
         slimSection.style.display = 'block';
@@ -482,12 +492,11 @@
             var card = document.createElement('div');
             card.className = 'color-card';
             
-            var targetImage = col.detailImg || col.img;
-            card.onclick = function() { selectColor(targetImage); };
+            card.onclick = function() { selectColor(col.img); };
             
             card.innerHTML = 
               '<div class="color-swatch">' +
-                '<img src="' + col.img + '" alt="' + col.name + '" onerror="this.style.display=\'none\'; this.nextElementSibling.style.display=\'flex\';">' +
+                '<img src="' + col.img + '" class="darken-bg" alt="' + col.name + '" onerror="this.onerror=null; if(\''+col.altImg+'\'){this.src=\''+col.altImg+'\';} else {this.style.display=\'none\'; this.nextElementSibling.style.display=\'flex\';}">' +
                 '<div class="color-fallback-box" style="background:' + col.bg + ';">' + col.name + '</div>' +
               '</div>' +
               '<div class="color-name">' + col.name + '</div>';
