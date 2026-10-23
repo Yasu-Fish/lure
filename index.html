@@ -296,7 +296,7 @@
   <div class="container">
     
     <!-- メイン スペック紹介 -->
-    <h2 class="section-title" id="main-spec-title">AMY SPECIFICATION</h2>
+    <h2 class="section-title" id="main-spec-title">SPECIFICATION</h2>
     <div class="spec-card">
       <div class="spec-row">
         <span class="spec-label">Length</span>
@@ -317,7 +317,7 @@
     </div>
 
     <!-- メイン カラーバリエーション -->
-    <h2 class="section-title">AMY COLOR VARIATION</h2>
+    <h2 class="section-title" id="main-color-title">COLOR VARIATION</h2>
     <div class="color-grid" id="color-grid">
       <!-- JavaScriptで動的生成 -->
     </div>
@@ -386,7 +386,6 @@
           { name: 'レッドアイグロー', img: 'AMY_color4.jpg', detailImg: 'AMY_color4.jpg', bg: 'linear-gradient(135deg, #ef4444, #991b1b)' }
         ],
         slimColors: [
-          /* 正しいファイル名・色の順序へ完全統一 */
           { name: 'アーバングリーン', img: 'AMY_Slim_c1.JPG', altImg: 'AMY_Slim_c1.jpg', bg: 'linear-gradient(135deg, #22c55e, #15803d)' },
           { name: 'クリアピンク', img: 'AMY_Slim_c2.JPG', altImg: 'AMY_Slim_c2.jpg', bg: 'linear-gradient(135deg, #ec4899, #be185d)' }
         ]
@@ -437,6 +436,10 @@
       document.getElementById('fallback-title').innerText = data.title;
       document.getElementById('fallback-title').style.color = data.fallbackColor;
       document.getElementById('fallback-catch').innerText = data.catch;
+
+      // 見出しタイトルの動的変更 (AMY SPECIFICATION / AMY COLOR VARIATION)
+      document.getElementById('main-spec-title').innerText = data.title + ' SPECIFICATION';
+      document.getElementById('main-color-title').innerText = data.title + ' COLOR VARIATION';
 
       document.getElementById('spec-length').innerText = data.length;
       document.getElementById('spec-weight').innerText = data.weight;
