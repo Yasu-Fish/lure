@@ -103,10 +103,10 @@
       transition: opacity 0.3s ease;
     }
 
-    /* 拡大画像の上に表示されるルアー名ラベル */
+    /* 拡大画像の上に表示されるルアー名ラベル（PC表示調整） */
     .hero-lure-title {
       position: absolute;
-      top: 15%;
+      top: 80px; /* 固定ヘッダー(60px)をしっかり避け、画像の上部に近接 */
       left: 50%;
       transform: translateX(-50%);
       font-size: 2.2rem;
@@ -124,7 +124,8 @@
       display: none;
       opacity: 0;
     }
-    /* スマホ画面向けの表示位置調整（ルアー画像本体の上に配置） */
+
+    /* スマホ画面向けの表示位置調整 */
     @media (max-width: 768px) {
       .hero-lure-title {
         font-size: 1.5rem;
@@ -317,7 +318,7 @@
 
   <!-- メイン 全画面ポスターヒーロー -->
   <div class="hero-container main-hero" id="hero-section">
-    <!-- ポスター画像上に重なるルアー名表記 -->
+    <!-- ポスター画像の上に重なるルアー名表記 -->
     <div id="hero-lure-title" class="hero-lure-title"></div>
 
     <img id="hero-img" class="hero-bg" src="LUKIA_3.jpg" alt="Lure Poster" onerror="handleMainImgError(this);">
@@ -542,8 +543,6 @@
     function selectColor(imageSrc, lureLabel) {
       changeMainImage(imageSrc, lureLabel);
       
-      // 1回目・2回目以降の位置ズレ防止処理：
-      // 画面の最上部へ正確にアニメーションスクロールさせる
       document.documentElement.scrollTop = 0;
       document.body.scrollTop = 0;
       window.scrollTo({ top: 0, behavior: 'smooth' });
