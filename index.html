@@ -211,7 +211,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      background-color: #1a1d24;
+      background-color: #0b0c10;
       position: relative;
     }
     .color-swatch img {
@@ -221,6 +221,12 @@
       object-position: center;
       border-radius: 8px;
       display: block;
+    }
+
+    /* 白背景画像を背景色（#0b0c10）となじませる加工処理 */
+    .color-swatch img.dark-blend-mode {
+      mix-blend-mode: darken;
+      filter: contrast(1.2) brightness(1.1);
     }
 
     .color-fallback-box {
@@ -467,7 +473,7 @@
         })(data.colors[j]);
       }
 
-      // AMY Slim セクション制御（通常AMYやLUKIAと同じ処理で生成）
+      // AMY Slim セクション制御（暗転合成クラス dark-blend-mode を適用）
       var slimWrapper = document.getElementById('amy-slim-wrapper');
       if (brandKey === 'amy' && data.slimColors) {
         slimWrapper.style.display = 'block';
@@ -483,7 +489,7 @@
             
             card.innerHTML = 
               '<div class="color-swatch">' +
-                '<img src="' + col.img + '" alt="' + col.name + '" onerror="this.onerror=null; if(\''+col.altImg+'\'){this.src=\''+col.altImg+'\';} else {this.style.display=\'none\'; this.nextElementSibling.style.display=\'flex\';}">' +
+                '<img src="' + col.img + '" class="dark-blend-mode" alt="' + col.name + '" onerror="this.onerror=null; if(\''+col.altImg+'\'){this.src=\''+col.altImg+'\';} else {this.style.display=\'none\'; this.nextElementSibling.style.display=\'flex\';}">' +
                 '<div class="color-fallback-box" style="background:' + col.bg + ';">' + col.name + '</div>' +
               '</div>' +
               '<div class="color-name">' + col.name + '</div>';
