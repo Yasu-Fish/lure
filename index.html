@@ -76,7 +76,7 @@
       box-shadow: 0 2px 10px rgba(126, 34, 206, 0.5);
     }
 
-    /* ヒーローポスター（メイン・サブ共通で完全に同サイズ設定） */
+    /* ヒーローポスター */
     .hero-container {
       position: relative;
       width: 100%;
@@ -211,7 +211,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      background-color: #1a1d24;
+      background-color: #0b0c10;
       position: relative;
     }
     .color-swatch img {
@@ -221,6 +221,12 @@
       object-position: center;
       border-radius: 8px;
       display: block;
+    }
+
+    /* AMY Slim 白背景画像を黒背景になじませる特殊ブレンド処理 */
+    .color-swatch img.slim-dark-bg {
+      mix-blend-mode: difference;
+      filter: invert(1) contrast(1.1) brightness(1.1);
     }
 
     .color-fallback-box {
@@ -338,15 +344,15 @@
       <div class="spec-card">
         <div class="spec-row">
           <span class="spec-label">Length</span>
-          <span class="spec-value">95mm</span>
+          <span class="spec-value">85mm</span>
         </div>
         <div class="spec-row">
           <span class="spec-label">Weight</span>
-          <span class="spec-value">11.7g</span>
+          <span class="spec-value">10.5g</span>
         </div>
         <div class="spec-row">
           <span class="spec-label">Type</span>
-          <span class="spec-value">シンキングペンシル</span>
+          <span class="spec-value">スリムシンキングペンシル</span>
         </div>
         <div class="spec-row">
           <span class="spec-label">Hook</span>
@@ -480,7 +486,7 @@
             
             card.innerHTML = 
               '<div class="color-swatch">' +
-                '<img src="' + col.img + '" alt="' + col.name + '" onerror="this.onerror=null; if(\''+col.altImg+'\'){this.src=\''+col.altImg+'\';} else {this.style.display=\'none\'; this.nextElementSibling.style.display=\'flex\';}">' +
+                '<img src="' + col.img + '" class="slim-dark-bg" alt="' + col.name + '" onerror="this.onerror=null; if(\''+col.altImg+'\'){this.src=\''+col.altImg+'\';} else {this.style.display=\'none\'; this.nextElementSibling.style.display=\'flex\';}">' +
                 '<div class="color-fallback-box" style="background:' + col.bg + ';">' + col.name + '</div>' +
               '</div>' +
               '<div class="color-name">' + col.name + '</div>';
