@@ -103,7 +103,7 @@
       transition: opacity 0.3s ease;
     }
 
-    /* 拡大画像の上に表示されるルアー名ラベル */
+    /* 拡大画像の上に表示されるルアー名ラベル（初期は非表示） */
     .hero-lure-title {
       position: absolute;
       top: 40px;
@@ -121,6 +121,8 @@
       pointer-events: none;
       white-space: nowrap;
       transition: opacity 0.3s ease;
+      display: none; /* 通常時非表示 */
+      opacity: 0;
     }
     @media (max-width: 768px) {
       .hero-lure-title {
@@ -315,7 +317,7 @@
   <!-- メイン 全画面ポスターヒーロー -->
   <div class="hero-container main-hero" id="hero-section">
     <!-- ポスター画像上に重なるルアー名表記 -->
-    <div id="hero-lure-title" class="hero-lure-title">LUKIA 60</div>
+    <div id="hero-lure-title" class="hero-lure-title"></div>
 
     <img id="hero-img" class="hero-bg" src="LUKIA_3.jpg" alt="Lure Poster" onerror="handleMainImgError(this);">
     
@@ -409,7 +411,7 @@
     var brandData = {
       amy: {
         imgSrc: 'AMY_3.jpg',
-        title: 'AMY 72',
+        title: 'AMY',
         displayTitle: 'AMY 72',
         catch: 'ナチュラルな微弱波動でターゲットを狙い打つエイミー',
         length: '72mm',
@@ -431,7 +433,7 @@
       },
       lukia: {
         imgSrc: 'LUKIA_3.jpg',
-        title: 'LUKIA 60',
+        title: 'LUKIA',
         displayTitle: 'LUKIA 60',
         catch: '都会の明暗に潜む一筋の光',
         length: '60mm',
@@ -465,7 +467,8 @@
         if (activeBtn) activeBtn.classList.add('active');
       }
 
-      changeMainImage(data.imgSrc, data.displayTitle);
+      // 通常切り替え時はテキストタイトルを非表示にする（nullを渡す）
+      changeMainImage(data.imgSrc, null);
 
       var fallback = document.getElementById('hero-fallback');
       if (fallback) {
@@ -519,7 +522,7 @@
             var card = document.createElement('div');
             card.className = 'color-card';
             
-            /* AMY Slimの画像をクリックした際は AMY 95 Slim を表示 */
+            /* AMY Slim画像クリック時のみ "AMY 95 Slim" を表示 */
             card.onclick = function() { selectColor(col.img, 'AMY 95 Slim'); };
             
             card.innerHTML = 
@@ -549,16 +552,25 @@
       
       heroImg.setAttribute('data-alt-tried', 'false');
       heroImg.style.opacity = '0';
-      if (lureTitle) lureTitle.style.opacity = '0';
+      
+      if (lureTitle) {
+        lureTitle.style.opacity = '0';
+      }
 
       setTimeout(function() {
         heroImg.src = imageSrc;
         heroImg.style.display = 'block';
         heroImg.style.opacity = '1';
 
-        if (lureTitle && lureLabel) {
-          lureTitle.innerText = lureLabel;
-          lureTitle.style.opacity = '1';
+        /* ルアー名が指定されている場合（＝カラー画像クリック時）のみタイトルを表示 */
+        if (lureTitle) {
+          if (lureLabel) {
+            lureTitle.innerText = lureLabel;
+            lureTitle.style.display = 'block';
+            setTimeout(function() { lureTitle.style.opacity = '1'; }, 50);
+          } else {
+            lureTitle.style.display = 'none';
+          }
         }
       }, 150);
     }
