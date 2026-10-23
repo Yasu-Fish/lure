@@ -124,11 +124,11 @@
       display: none;
       opacity: 0;
     }
-    /* スマホ画面向けの表示位置調整（ルアー画像のすぐ上にぴったり配置） */
+    /* スマホ画面向けの表示位置調整（ルアー画像本体の上に配置） */
     @media (max-width: 768px) {
       .hero-lure-title {
         font-size: 1.5rem;
-        top: 28%; /* 画像の上のすぐ近くに配置 */
+        top: 28%;
         letter-spacing: 2px;
       }
     }
@@ -541,6 +541,11 @@
 
     function selectColor(imageSrc, lureLabel) {
       changeMainImage(imageSrc, lureLabel);
+      
+      // 1回目・2回目以降の位置ズレ防止処理：
+      // 画面の最上部へ正確にアニメーションスクロールさせる
+      document.documentElement.scrollTop = 0;
+      document.body.scrollTop = 0;
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
