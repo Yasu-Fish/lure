@@ -103,6 +103,33 @@
       transition: opacity 0.3s ease;
     }
 
+    /* 拡大画像の上に表示されるルアー名ラベル */
+    .hero-lure-title {
+      position: absolute;
+      top: 40px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 2.2rem;
+      font-weight: 800;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      background: linear-gradient(135deg, #ffffff, #a855f7);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: 0 4px 20px rgba(0, 0, 0, 0.8);
+      z-index: 20;
+      pointer-events: none;
+      white-space: nowrap;
+      transition: opacity 0.3s ease;
+    }
+    @media (max-width: 768px) {
+      .hero-lure-title {
+        font-size: 1.6rem;
+        top: 25px;
+        letter-spacing: 2px;
+      }
+    }
+
     /* スクロール誘導アイコン */
     .scroll-indicator {
       position: absolute;
@@ -223,7 +250,7 @@
       border-radius: 8px;
       display: block;
     }
-    /* AMY Slim 専用：左右ギリギリまで最大限に大きく表示 */
+    /* AMY Slim 専用：左右ギリギリまで大きく表示 */
     .color-swatch img.slim-img {
       width: 100%;
       height: 100%;
@@ -287,6 +314,9 @@
 
   <!-- メイン 全画面ポスターヒーロー -->
   <div class="hero-container main-hero" id="hero-section">
+    <!-- ポスター画像上に重なるルアー名表記 -->
+    <div id="hero-lure-title" class="hero-lure-title">LUKIA 60</div>
+
     <img id="hero-img" class="hero-bg" src="LUKIA_3.jpg" alt="Lure Poster" onerror="handleMainImgError(this);">
     
     <div id="hero-fallback" class="hero-bg" style="display:none; flex-direction:column; justify-content:center; align-items:center; background: radial-gradient(circle, #064e3b 0%, #0b0c10 100%); text-align:center; padding:20px;">
@@ -379,7 +409,8 @@
     var brandData = {
       amy: {
         imgSrc: 'AMY_3.jpg',
-        title: 'AMY',
+        title: 'AMY 72',
+        displayTitle: 'AMY 72',
         catch: 'ナチュラルな微弱波動でターゲットを狙い打つエイミー',
         length: '72mm',
         weight: '8.0g',
@@ -400,7 +431,8 @@
       },
       lukia: {
         imgSrc: 'LUKIA_3.jpg',
-        title: 'LUKIA',
+        title: 'LUKIA 60',
+        displayTitle: 'LUKIA 60',
         catch: '都会の明暗に潜む一筋の光',
         length: '60mm',
         weight: '9.1g',
@@ -433,7 +465,7 @@
         if (activeBtn) activeBtn.classList.add('active');
       }
 
-      changeMainImage(data.imgSrc);
+      changeMainImage(data.imgSrc, data.displayTitle);
 
       var fallback = document.getElementById('hero-fallback');
       if (fallback) {
@@ -462,7 +494,7 @@
           card.className = 'color-card';
           
           var targetImage = col.detailImg || col.img;
-          card.onclick = function() { selectColor(targetImage); };
+          card.onclick = function() { selectColor(targetImage, data.displayTitle); };
           
           card.innerHTML = 
             '<div class="color-swatch">' +
@@ -475,7 +507,7 @@
         })(data.colors[j]);
       }
 
-      // AMY Slim セクション制御（専用クラス slim-img を付与）
+      // AMY Slim セクション制御
       var slimWrapper = document.getElementById('amy-slim-wrapper');
       if (brandKey === 'amy' && data.slimColors) {
         slimWrapper.style.display = 'block';
@@ -487,7 +519,8 @@
             var card = document.createElement('div');
             card.className = 'color-card';
             
-            card.onclick = function() { selectColor(col.img); };
+            /* AMY Slimの画像をクリックした際は AMY 95 Slim を表示 */
+            card.onclick = function() { selectColor(col.img, 'AMY 95 Slim'); };
             
             card.innerHTML = 
               '<div class="color-swatch">' +
@@ -504,20 +537,29 @@
       }
     }
 
-    function selectColor(imageSrc) {
-      changeMainImage(imageSrc);
+    function selectColor(imageSrc, lureLabel) {
+      changeMainImage(imageSrc, lureLabel);
       document.getElementById('hero-section').scrollIntoView({ behavior: 'smooth' });
     }
 
-    function changeMainImage(imageSrc) {
+    function changeMainImage(imageSrc, lureLabel) {
       var heroImg = document.getElementById('hero-img');
+      var lureTitle = document.getElementById('hero-lure-title');
       if (!heroImg) return;
+      
       heroImg.setAttribute('data-alt-tried', 'false');
       heroImg.style.opacity = '0';
+      if (lureTitle) lureTitle.style.opacity = '0';
+
       setTimeout(function() {
         heroImg.src = imageSrc;
         heroImg.style.display = 'block';
         heroImg.style.opacity = '1';
+
+        if (lureTitle && lureLabel) {
+          lureTitle.innerText = lureLabel;
+          lureTitle.style.opacity = '1';
+        }
       }, 150);
     }
 
