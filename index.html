@@ -250,6 +250,18 @@
       border-color: #a855f7;
       box-shadow: 0 4px 15px rgba(168, 85, 247, 0.3);
     }
+
+    /* Coming Soon 専用のカードスタイル（クリック不可） */
+    .color-card.disabled-card {
+      cursor: not-allowed;
+      opacity: 0.85;
+    }
+    .color-card.disabled-card:hover {
+      transform: none;
+      border-color: rgba(255, 255, 255, 0.08);
+      box-shadow: none;
+    }
+
     .color-swatch {
       width: 100%;
       height: 120px;
@@ -609,10 +621,10 @@
       for (var j = 0; j < data.colors.length; j++) {
         (function(col) {
           var card = document.createElement('div');
-          card.className = 'color-card';
           
           if (col.isComingSoon) {
-            card.onclick = function() { showComingSoonHero(col.name, data.displayTitle); };
+            card.className = 'color-card disabled-card';
+            card.onclick = null; // クリック処理を完全無効化
             card.innerHTML = 
               '<div class="color-swatch">' +
                 '<div class="coming-soon-box">' +
@@ -622,6 +634,7 @@
               '</div>' +
               '<div class="color-name">' + col.name + '</div>';
           } else {
+            card.className = 'color-card';
             var targetImage = col.detailImg || col.img;
             card.onclick = function() { selectColor(targetImage, data.displayTitle); };
             
@@ -664,28 +677,6 @@
       } else {
         slimWrapper.style.display = 'none';
       }
-    }
-
-    function showComingSoonHero(colorName, lureLabel) {
-      var heroImg = document.getElementById('hero-img');
-      var fallback = document.getElementById('hero-fallback');
-      var lureTitle = document.getElementById('hero-lure-title');
-
-      if (heroImg) heroImg.style.display = 'none';
-
-      if (fallback) {
-        fallback.style.background = 'radial-gradient(circle, #2e1065 0%, #0b0c10 100%)';
-        document.getElementById('fallback-title').innerText = lureLabel + ' - ' + colorName;
-        document.getElementById('fallback-title').style.color = '#e9d5ff';
-        document.getElementById('fallback-catch').innerText = 'COMING SOON...';
-        fallback.style.display = 'flex';
-      }
-
-      if (lureTitle) lureTitle.style.display = 'none';
-
-      document.documentElement.scrollTop = 0;
-      document.body.scrollTop = 0;
-      window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
     function selectColor(imageSrc, lureLabel) {
