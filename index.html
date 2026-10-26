@@ -36,21 +36,26 @@
       border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     }
 
-    /* ヘッダー左側：Lure Information テキストロゴ */
+    /* ヘッダー左側：Lure Information テキストロゴ (文字サイズ拡大＆視認性アップ) */
     .header-title-link {
       text-decoration: none;
+      display: flex;
+      align-items: center;
     }
     .header-title {
-      font-size: 1.1rem;
-      font-weight: 700;
-      letter-spacing: 1.5px;
-      background: linear-gradient(135deg, #ffffff, #a855f7);
+      font-size: 1.35rem; /* サイズ拡大 (旧 1.1rem -> 1.35rem) */
+      font-weight: 800;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      background: linear-gradient(135deg, #ffffff 0%, #a855f7 60%, #38bdf8 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
-      transition: opacity 0.3s ease;
+      filter: drop-shadow(0 0 10px rgba(168, 85, 247, 0.5));
+      transition: transform 0.3s ease, filter 0.3s ease;
     }
     .header-title-link:hover .header-title {
-      opacity: 0.8;
+      transform: scale(1.03);
+      filter: drop-shadow(0 0 15px rgba(34, 211, 238, 0.8));
     }
 
     @media (max-width: 768px) {
@@ -58,7 +63,8 @@
         padding: 0 16px;
       }
       .header-title {
-        font-size: 0.95rem;
+        font-size: 1.1rem; /* スマホ表示時のサイズも拡大 */
+        letter-spacing: 1px;
       }
     }
 
