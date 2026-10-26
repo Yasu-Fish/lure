@@ -36,7 +36,7 @@
       border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     }
 
-    /* ヘッダー左側ロゴ (bfl_logo3.png) */
+    /* ヘッダー左側ロゴ (黒背景・白文字専用の背景透過＆ネイティブ発光設定) */
     .header-logo-link {
       display: flex;
       align-items: center;
@@ -46,14 +46,14 @@
       height: 34px;
       width: auto;
       object-fit: contain;
-      /* 白背景を黒背景に反転させてスクリーンスルーで背景白を透過消去 */
-      filter: invert(1) grayscale(1) brightness(1.2);
+      /* 黒背景を完全透明化し、白文字部分を綺麗に発光させる設定 */
       mix-blend-mode: screen;
+      filter: drop-shadow(0 0 6px rgba(168, 85, 247, 0.5));
       transition: transform 0.3s ease, filter 0.3s ease;
     }
     .header-logo-link:hover .header-logo {
-      transform: scale(1.05);
-      filter: invert(1) grayscale(1) brightness(1.5) drop-shadow(0 0 8px rgba(34, 211, 238, 0.8));
+      transform: scale(1.06);
+      filter: brightness(1.2) drop-shadow(0 0 12px rgba(34, 211, 238, 0.9));
     }
 
     @media (max-width: 768px) {
