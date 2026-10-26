@@ -36,31 +36,47 @@
       border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     }
 
-    /* ヘッダー左側ロゴ (Webページテーマに合わせたスタイリッシュグラデーション＆ネオン発光) */
+    /* ヘッダー左側ロゴ (文字自体をパープル×シアンのグラデーションカラー化) */
     .header-logo-link {
       display: flex;
       align-items: center;
       text-decoration: none;
+      position: relative;
     }
+
+    /* ロゴ文字のグラデーションマスクラッパー */
+    .logo-gradient-wrapper {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      height: 34px;
+      /* 背景にグラデーションを配置 */
+      background: linear-gradient(135deg, #a855f7 0%, #22d3ee 100%);
+      transition: transform 0.3s ease, filter 0.3s ease;
+      filter: drop-shadow(0 0 8px rgba(168, 85, 247, 0.6));
+    }
+
+    /* 黒背景・白文字画像を使ってグラデーションをロゴ文字型にくり抜く */
     .header-logo {
       height: 34px;
       width: auto;
       object-fit: contain;
-      /* 黒背景透過＋パープル＆シアンブルーの着色グラデーション・ネオンエフェクト */
-      mix-blend-mode: screen;
-      filter: drop-shadow(0 0 8px rgba(168, 85, 247, 0.7)) drop-shadow(0 0 16px rgba(34, 211, 238, 0.5));
-      transition: transform 0.3s ease, filter 0.3s ease;
+      mix-blend-mode: multiply; /* 白文字部分だけグラデーションが透け、黒部分は背景と同化 */
+      display: block;
     }
-    .header-logo-link:hover .header-logo {
+
+    .header-logo-link:hover .logo-gradient-wrapper {
       transform: scale(1.06);
-      filter: brightness(1.2) drop-shadow(0 0 12px rgba(34, 211, 238, 0.9)) drop-shadow(0 0 20px rgba(168, 85, 247, 0.8));
+      background: linear-gradient(135deg, #c084fc 0%, #38bdf8 100%);
+      filter: drop-shadow(0 0 12px rgba(34, 211, 238, 0.9)) drop-shadow(0 0 16px rgba(168, 85, 247, 0.8));
     }
 
     @media (max-width: 768px) {
       header {
         padding: 0 16px;
       }
-      .header-logo {
+      .logo-gradient-wrapper, .header-logo {
         height: 28px;
       }
     }
@@ -361,9 +377,11 @@
 
   <!-- ヘッダー -->
   <header>
-    <!-- ヘッダー左側：BFLロゴ (bfl_logo3.png) -->
+    <!-- ヘッダー左側：BFLロゴ (グラデーションカラー文字化) -->
     <a href="#" class="header-logo-link" onclick="window.scrollTo({top:0, behavior:'smooth'}); return false;">
-      <img src="bfl_logo3.png" alt="BOTTOM FIELD LAB Logo" class="header-logo" onerror="this.onerror=null; this.src='bfl_logo3.PNG';">
+      <div class="logo-gradient-wrapper">
+        <img src="bfl_logo3.png" alt="BOTTOM FIELD LAB Logo" class="header-logo" onerror="this.onerror=null; this.src='bfl_logo3.PNG';">
+      </div>
     </a>
 
     <div class="tab-switcher">
