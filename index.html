@@ -36,7 +36,7 @@
       border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     }
 
-    /* ヘッダー左側ロゴ（BFLロゴ） */
+    /* ヘッダー左側ロゴ (bfl-logo2.jpg) */
     .header-logo-link {
       display: flex;
       align-items: center;
@@ -46,14 +46,14 @@
       height: 34px;
       width: auto;
       object-fit: contain;
-      /* 白背景透過＋ホワイトネオンフィルター */
+      /* 白背景を黒背景に反転させてスクリーンスルーで背景白を透過消去 */
+      filter: invert(1) grayscale(1) brightness(1.2);
       mix-blend-mode: screen;
-      filter: brightness(0) invert(1) drop-shadow(0 0 8px rgba(168, 85, 247, 0.4));
       transition: transform 0.3s ease, filter 0.3s ease;
     }
     .header-logo-link:hover .header-logo {
       transform: scale(1.05);
-      filter: brightness(0) invert(1) drop-shadow(0 0 12px rgba(34, 211, 238, 0.8));
+      filter: invert(1) grayscale(1) brightness(1.5) drop-shadow(0 0 8px rgba(34, 211, 238, 0.8));
     }
 
     @media (max-width: 768px) {
@@ -361,9 +361,9 @@
 
   <!-- ヘッダー -->
   <header>
-    <!-- ヘッダー左側：BFLロゴ (bfl-logo.png.jpg 対応) -->
+    <!-- ヘッダー左側：BFLロゴ (bfl-logo2.jpg) -->
     <a href="#" class="header-logo-link" onclick="window.scrollTo({top:0, behavior:'smooth'}); return false;">
-      <img src="bfl-logo.png.jpg" alt="BOTTOM FIELD LAB Logo" class="header-logo" onerror="this.onerror=null; this.src='bfl-logo.png';">
+      <img src="bfl-logo2.jpg" alt="BOTTOM FIELD LAB Logo" class="header-logo" onerror="this.onerror=null; this.src='bfl-logo2.JPG';">
     </a>
 
     <div class="tab-switcher">
