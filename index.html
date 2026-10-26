@@ -36,7 +36,7 @@
       border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     }
 
-    /* ヘッダー左側ロゴ（添付BFLロゴ） */
+    /* ヘッダー左側ロゴ（BFLロゴ） */
     .header-logo-link {
       display: flex;
       align-items: center;
@@ -361,9 +361,9 @@
 
   <!-- ヘッダー -->
   <header>
-    <!-- ヘッダー左側：BFLロゴ -->
+    <!-- ヘッダー左側：BFLロゴ (bfl-logo.png.jpg 対応) -->
     <a href="#" class="header-logo-link" onclick="window.scrollTo({top:0, behavior:'smooth'}); return false;">
-      <img src="bfl-logo.png" alt="BOTTOM FIELD LAB Logo" class="header-logo" onerror="this.src='Gemini_Generated_Image_qosyzuqosyzuqosy.jpg'; this.onerror=function(){this.src='logo1.jpg';};">
+      <img src="bfl-logo.png.jpg" alt="BOTTOM FIELD LAB Logo" class="header-logo" onerror="this.onerror=null; this.src='bfl-logo.png';">
     </a>
 
     <div class="tab-switcher">
