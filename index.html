@@ -35,23 +35,36 @@
       z-index: 1000;
       border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     }
-    .brand-title {
-      font-size: 1.1rem;
-      font-weight: 700;
-      letter-spacing: 2px;
-      background: linear-gradient(135deg, #a855f7, #22d3ee);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
+
+    /* ヘッダー左側ロゴ（添付BFLロゴ） */
+    .header-logo-link {
+      display: flex;
+      align-items: center;
+      text-decoration: none;
     }
+    .header-logo {
+      height: 34px;
+      width: auto;
+      object-fit: contain;
+      /* 白背景透過＋ホワイトネオンフィルター */
+      mix-blend-mode: screen;
+      filter: brightness(0) invert(1) drop-shadow(0 0 8px rgba(168, 85, 247, 0.4));
+      transition: transform 0.3s ease, filter 0.3s ease;
+    }
+    .header-logo-link:hover .header-logo {
+      transform: scale(1.05);
+      filter: brightness(0) invert(1) drop-shadow(0 0 12px rgba(34, 211, 238, 0.8));
+    }
+
     @media (max-width: 768px) {
       header {
         padding: 0 16px;
       }
-      .brand-title {
-        font-size: 0.95rem;
-        letter-spacing: 1px;
+      .header-logo {
+        height: 28px;
       }
     }
+
     /* 切り替えタブ */
     .tab-switcher {
       display: flex;
@@ -348,7 +361,10 @@
 
   <!-- ヘッダー -->
   <header>
-    <div class="brand-title">Lure Information</div>
+    <!-- ヘッダー左側：BFLロゴ -->
+    <a href="#" class="header-logo-link" onclick="window.scrollTo({top:0, behavior:'smooth'}); return false;">
+      <img src="bfl-logo.png" alt="BOTTOM FIELD LAB Logo" class="header-logo" onerror="this.src='Gemini_Generated_Image_qosyzuqosyzuqosy.jpg'; this.onerror=function(){this.src='logo1.jpg';};">
+    </a>
 
     <div class="tab-switcher">
       <button class="tab-btn" id="btn-amy" onclick="switchBrand('amy', event)">AMY</button>
