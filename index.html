@@ -36,7 +36,7 @@
       border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     }
 
-    /* ヘッダー左側：Lure Information テキストロゴ (最適サイズ＋スタイリッシュな斜体) */
+    /* ヘッダー左側：Lure Information テキストロゴ */
     .header-title-link {
       text-decoration: none;
       display: flex;
@@ -251,17 +251,6 @@
       box-shadow: 0 4px 15px rgba(168, 85, 247, 0.3);
     }
 
-    /* Coming Soon 専用のカードスタイル（クリック不可） */
-    .color-card.disabled-card {
-      cursor: not-allowed;
-      opacity: 0.85;
-    }
-    .color-card.disabled-card:hover {
-      transform: none;
-      border-color: rgba(255, 255, 255, 0.08);
-      box-shadow: none;
-    }
-
     .color-swatch {
       width: 100%;
       height: 120px;
@@ -289,36 +278,6 @@
       height: 100%;
       object-fit: cover;
       object-position: center;
-    }
-
-    /* Coming Soon 専用のおしゃれなスウォッチデザイン */
-    .coming-soon-box {
-      width: 100%;
-      height: 100%;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      background: linear-gradient(135deg, rgba(255,255,255,0.06), rgba(168,85,247,0.15));
-      border: 1px dashed rgba(255, 255, 255, 0.25);
-      border-radius: 8px;
-      color: #e2e8f0;
-      font-weight: 700;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      box-shadow: inset 0 0 15px rgba(0,0,0,0.5);
-    }
-    .coming-soon-box .cs-text {
-      font-size: 0.85rem;
-      background: linear-gradient(135deg, #ffffff, #a855f7);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      margin-bottom: 2px;
-    }
-    .coming-soon-box .cs-sub {
-      font-size: 0.65rem;
-      color: #94a3b8;
-      letter-spacing: 1px;
     }
 
     .color-fallback-box {
@@ -574,7 +533,7 @@
           { name: 'トワイライト', img: 'LUKIA_color3.jpg', detailImg: 'LUKIA_color3.jpg', bg: 'linear-gradient(135deg, #eab308, #854d0e)' },
           { name: 'レッドアイグロー', img: 'LUKIA_color4.jpg', detailImg: 'LUKIA_color4.jpg', bg: 'linear-gradient(135deg, #ef4444, #991b1b)' },
           { name: 'スマイルイエロー', img: 'LUKIA_color5.jpg', detailImg: 'LUKIA_color5.jpg', bg: 'linear-gradient(135deg, #facc15, #ca8a04)' },
-          { name: 'ミルキー', isComingSoon: true }
+          { name: 'ミルキー', img: 'LUKIA_color6.jpg', detailImg: 'LUKIA_color6.jpg', bg: 'linear-gradient(135deg, #f8fafc, #cbd5e1)' }
         ]
       }
     };
@@ -607,8 +566,12 @@
       document.getElementById('fallback-title').style.color = data.fallbackColor;
       document.getElementById('fallback-catch').innerText = data.catch;
 
-      document.getElementById('main-spec-title').innerText = data.title + ' SPECIFICATION';
-      document.getElementById('main-color-title').innerText = data.title + ' COLOR VARIATION';
+      /* 見出し表記の切り替え（LUKIAの場合：LUKIA 60 SPECIFICATION / COLOR VARIATION） */
+      var specTitleText = (brandKey === 'lukia') ? 'LUKIA 60 SPECIFICATION' : data.title + ' SPECIFICATION';
+      var colorTitleText = (brandKey === 'lukia') ? 'LUKIA 60 COLOR VARIATION' : data.title + ' COLOR VARIATION';
+
+      document.getElementById('main-spec-title').innerText = specTitleText;
+      document.getElementById('main-color-title').innerText = colorTitleText;
 
       document.getElementById('spec-length').innerText = data.length;
       document.getElementById('spec-weight').innerText = data.weight;
@@ -621,30 +584,16 @@
       for (var j = 0; j < data.colors.length; j++) {
         (function(col) {
           var card = document.createElement('div');
+          card.className = 'color-card';
+          var targetImage = col.detailImg || col.img;
+          card.onclick = function() { selectColor(targetImage, data.displayTitle); };
           
-          if (col.isComingSoon) {
-            card.className = 'color-card disabled-card';
-            card.onclick = null; // クリック処理を完全無効化
-            card.innerHTML = 
-              '<div class="color-swatch">' +
-                '<div class="coming-soon-box">' +
-                  '<span class="cs-text">Coming Soon</span>' +
-                  '<span class="cs-sub">NEW COLOR</span>' +
-                '</div>' +
-              '</div>' +
-              '<div class="color-name">' + col.name + '</div>';
-          } else {
-            card.className = 'color-card';
-            var targetImage = col.detailImg || col.img;
-            card.onclick = function() { selectColor(targetImage, data.displayTitle); };
-            
-            card.innerHTML = 
-              '<div class="color-swatch">' +
-                '<img src="' + col.img + '" alt="' + col.name + '" onerror="this.style.display=\'none\'; this.nextElementSibling.style.display=\'flex\';">' +
-                '<div class="color-fallback-box" style="background:' + col.bg + ';">' + col.name + '</div>' +
-              '</div>' +
-              '<div class="color-name">' + col.name + '</div>';
-          }
+          card.innerHTML = 
+            '<div class="color-swatch">' +
+              '<img src="' + col.img + '" alt="' + col.name + '" onerror="this.style.display=\'none\'; this.nextElementSibling.style.display=\'flex\';">' +
+              '<div class="color-fallback-box" style="background:' + col.bg + ';">' + col.name + '</div>' +
+            '</div>' +
+            '<div class="color-name">' + col.name + '</div>';
           
           colorGrid.appendChild(card);
         })(data.colors[j]);
