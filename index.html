@@ -251,17 +251,6 @@
       box-shadow: 0 4px 15px rgba(168, 85, 247, 0.3);
     }
 
-    /* Coming Soon 専用のカードスタイル（クリック不可） */
-    .color-card.disabled-card {
-      cursor: not-allowed;
-      opacity: 0.85;
-    }
-    .color-card.disabled-card:hover {
-      transform: none;
-      border-color: rgba(255, 255, 255, 0.08);
-      box-shadow: none;
-    }
-
     .color-swatch {
       width: 100%;
       height: 120px;
@@ -289,36 +278,6 @@
       height: 100%;
       object-fit: cover;
       object-position: center;
-    }
-
-    /* Coming Soon 専用のおしゃれなスウォッチデザイン */
-    .coming-soon-box {
-      width: 100%;
-      height: 100%;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      background: linear-gradient(135deg, rgba(255,255,255,0.06), rgba(168,85,247,0.15));
-      border: 1px dashed rgba(255, 255, 255, 0.25);
-      border-radius: 8px;
-      color: #e2e8f0;
-      font-weight: 700;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      box-shadow: inset 0 0 15px rgba(0,0,0,0.5);
-    }
-    .coming-soon-box .cs-text {
-      font-size: 0.85rem;
-      background: linear-gradient(135deg, #ffffff, #a855f7);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      margin-bottom: 2px;
-    }
-    .coming-soon-box .cs-sub {
-      font-size: 0.65rem;
-      color: #94a3b8;
-      letter-spacing: 1px;
     }
 
     .color-fallback-box {
@@ -475,32 +434,30 @@
       <div class="spec-card">
         <div class="spec-row">
           <span class="spec-label">Length</span>
-          <span class="spec-value">-</span>
+          <span class="spec-value">70mm</span>
         </div>
         <div class="spec-row">
           <span class="spec-label">Weight</span>
-          <span class="spec-value">-</span>
+          <span class="spec-value">13.2g</span>
         </div>
         <div class="spec-row">
           <span class="spec-label">Type</span>
-          <span class="spec-value">-</span>
+          <span class="spec-value">ハードシンキングバイブ</span>
         </div>
         <div class="spec-row">
           <span class="spec-label">Hook</span>
-          <span class="spec-value">-</span>
+          <span class="spec-value">#6</span>
         </div>
       </div>
 
       <h2 class="section-title">LUKIA 70 COLOR VARIATION</h2>
       <div class="color-grid">
-        <div class="color-card disabled-card">
+        <div class="color-card" onclick="selectColor('LUKIA_70_color1.jpg', 'LUKIA 70');">
           <div class="color-swatch">
-            <div class="coming-soon-box">
-              <span class="cs-text">Coming Soon</span>
-              <span class="cs-sub">NEW MODEL</span>
-            </div>
+            <img src="LUKIA_70_color1.jpg" alt="ミルキー" onerror="this.onerror=null; if(this.src.indexOf('.jpg')!==-1){this.src=this.src.replace('.jpg','.JPG');}else{this.style.display='none'; this.nextElementSibling.style.display='flex';}">
+            <div class="color-fallback-box" style="background: linear-gradient(135deg, #f8fafc, #cbd5e1);">ミルキー</div>
           </div>
-          <div class="color-name">Coming Soon</div>
+          <div class="color-name">ミルキー</div>
         </div>
       </div>
     </div>
