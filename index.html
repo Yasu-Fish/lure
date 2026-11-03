@@ -563,16 +563,8 @@
       </div>
 
       <h2 class="section-title">AMY 110 Slim<br>COLOR VARIATION</h2>
-      <div class="color-grid">
-        <div class="color-card disabled-card">
-          <div class="color-swatch">
-            <div class="coming-soon-box">
-              <span class="cs-text">Coming Soon</span>
-              <span class="cs-sub">NEW MODEL</span>
-            </div>
-          </div>
-          <div class="color-name">Coming Soon</div>
-        </div>
+      <div class="color-grid" id="amy-110-slim-color-grid">
+        <!-- JavaScriptで動的生成 -->
       </div>
     </div>
 
@@ -626,7 +618,11 @@
         ],
         slimColors: [
           { name: 'アーバングリーン', img: 'AMY_Slim_c1.JPG', altImg: 'AMY_Slim_c1.jpg', bg: 'linear-gradient(135deg, #22c55e, #15803d)' },
-          { name: 'クリアピンク', img: 'AMY_Slim_c2.JPG', altImg: 'AMY_Slim_c2.jpg', bg: 'linear-gradient(135deg, #ec4899, #be185d)' }
+          { name: 'クリアピンク', img: 'AMY_Slim_c2.JPG', altImg: 'AMY_Slim_c2.jpg', bg: 'linear-gradient(135deg, #ec4899, #be185d)' },
+          { name: 'レッドヘッド', img: 'AMY_Slim_c3.jpg', altImg: 'AMY_Slim_c3.JPG', bg: 'linear-gradient(135deg, #ef4444, #991b1b)' }
+        ],
+        slim110Colors: [
+          { name: 'アーバングリーン', img: 'AMY_110slim_c1.jpg', altImg: 'AMY_110slim_c1.JPG', bg: 'linear-gradient(135deg, #22c55e, #15803d)' }
         ]
       },
       lukia: {
@@ -724,6 +720,8 @@
       var slimWrapper = document.getElementById('amy-slim-wrapper');
       if (brandKey === 'amy' && data.slimColors) {
         slimWrapper.style.display = 'block';
+        
+        // AMY 95 Slim カラー生成
         var slimGrid = document.getElementById('amy-slim-color-grid');
         slimGrid.innerHTML = '';
 
@@ -743,6 +741,30 @@
             
             slimGrid.appendChild(card);
           })(data.slimColors[k]);
+        }
+
+        // AMY 110 Slim カラー生成
+        var slim110Grid = document.getElementById('amy-110-slim-color-grid');
+        slim110Grid.innerHTML = '';
+
+        if (data.slim110Colors && data.slim110Colors.length > 0) {
+          for (var l = 0; l < data.slim110Colors.length; l++) {
+            (function(col) {
+              var card = document.createElement('div');
+              card.className = 'color-card';
+              
+              card.onclick = function() { selectColor(col.img, 'AMY 110 Slim'); };
+              
+              card.innerHTML = 
+                '<div class="color-swatch">' +
+                  '<img src="' + col.img + '" class="slim-img" alt="' + col.name + '" onerror="this.onerror=null; if(\''+col.altImg+'\'){this.src=\''+col.altImg+'\';} else {this.style.display=\'none\'; this.nextElementSibling.style.display=\'flex\';}">' +
+                  '<div class="color-fallback-box" style="background:' + col.bg + ';">' + col.name + '</div>' +
+                '</div>' +
+                '<div class="color-name">' + col.name + '</div>';
+              
+              slim110Grid.appendChild(card);
+            })(data.slim110Colors[l]);
+          }
         }
       } else {
         slimWrapper.style.display = 'none';
