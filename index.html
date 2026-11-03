@@ -489,7 +489,7 @@
         </div>
         <div class="spec-row">
           <span class="spec-label">Hook</span>
-          <span class="spec-value">#8</span>
+          <span class="spec-value">#6</span>
         </div>
       </div>
 
@@ -603,8 +603,8 @@
       document.getElementById('fallback-catch').innerText = data.catch;
 
       /* 見出し表記の切り替え */
-      var specTitleText = (brandKey === 'lukia') ? 'LUKIA 60 SPECIFICATION' : data.title + ' SPECIFICATION';
-      var colorTitleText = (brandKey === 'lukia') ? 'LUKIA 60 COLOR VARIATION' : data.title + ' COLOR VARIATION';
+      var specTitleText = (brandKey === 'lukia') ? 'LUKIA 60 SPECIFICATION' : (brandKey === 'amy' ? 'AMY 72 SPECIFICATION' : data.title + ' SPECIFICATION');
+      var colorTitleText = (brandKey === 'lukia') ? 'LUKIA 60 COLOR VARIATION' : (brandKey === 'amy' ? 'AMY 72 COLOR VARIATION' : data.title + ' COLOR VARIATION');
 
       document.getElementById('main-spec-title').innerText = specTitleText;
       document.getElementById('main-color-title').innerText = colorTitleText;
