@@ -200,6 +200,7 @@
       font-size: 0.7rem;
       color: #777;
       margin-top: 2px;
+      text-align: center;
     }
 
     /* ランキングテーブル */
@@ -213,11 +214,10 @@
     table {
       width: 100%;
       border-collapse: collapse;
-      text-align: left;
       font-size: 0.9rem;
     }
     th, td {
-      padding: 12px 14px;
+      padding: 12px 10px;
       border-bottom: 1px solid rgba(255, 255, 255, 0.05);
       vertical-align: middle;
     }
@@ -239,24 +239,25 @@
       background: rgba(255, 255, 255, 0.02);
     }
 
-    /* 順位数字のサイズ拡大調整 */
+    /* 各カラムのバランス調整 */
     .rank-num {
       font-weight: 800;
       font-size: 1.25rem;
       color: #c084fc;
-      width: 48px;
+      width: 10%;
       text-align: center;
     }
     .fish-img-cell {
-      width: 110px;
+      width: 25%;
+      text-align: center;
     }
     .fish-thumb-wrapper {
-      width: 100px;
-      height: 55px;
+      width: 90px;
+      height: 52px;
       border-radius: 6px;
       overflow: hidden;
       background: #0b0c10;
-      display: flex;
+      display: inline-flex;
       align-items: center;
       justify-content: center;
       cursor: pointer;
@@ -282,15 +283,20 @@
       font-weight: 800;
       color: #38bdf8;
       font-size: 1.15rem;
+      width: 20%;
+      text-align: center;
     }
     .angler-cell {
       font-weight: 600;
       color: #fff;
+      width: 20%;
       text-align: center;
     }
     .date-cell {
-      color: #666;
-      font-size: 0.75rem;
+      color: #888;
+      font-size: 0.8rem;
+      width: 25%;
+      text-align: center;
     }
 
     @media (max-width: 600px) {
@@ -308,22 +314,30 @@
         font-size: 0.75rem;
       }
       th, td {
-        padding: 10px 6px;
+        padding: 10px 4px;
         font-size: 0.8rem;
       }
       .rank-num {
         font-size: 1.1rem;
-        width: 38px;
+        width: 10%;
       }
       .fish-img-cell {
-        width: 85px;
+        width: 28%;
       }
       .fish-thumb-wrapper {
-        width: 80px;
-        height: 46px;
+        width: 72px;
+        height: 42px;
       }
       .length-cell {
         font-size: 1.05rem;
+        width: 20%;
+      }
+      .angler-cell {
+        width: 18%;
+      }
+      .date-cell {
+        font-size: 0.7rem;
+        width: 24%;
       }
     }
 
@@ -444,10 +458,10 @@
         <thead>
           <tr>
             <th class="center-th">#</th>
-            <th>画像</th>
-            <th>サイズ</th>
+            <th class="center-th">画像</th>
+            <th class="center-th">サイズ</th>
             <th class="center-th">アングラー</th>
-            <th>日付</th>
+            <th class="center-th">日付</th>
           </tr>
         </thead>
         <tbody id="ranking-tbody">
