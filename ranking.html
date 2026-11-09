@@ -235,10 +235,12 @@
       background: rgba(255, 255, 255, 0.02);
     }
 
+    /* 順位数字のサイズ拡大調整 */
     .rank-num {
       font-weight: 800;
-      color: #a855f7;
-      width: 40px;
+      font-size: 1.25rem;
+      color: #c084fc;
+      width: 48px;
       text-align: center;
     }
     .fish-img-cell {
@@ -303,6 +305,10 @@
       th, td {
         padding: 10px 6px;
         font-size: 0.8rem;
+      }
+      .rank-num {
+        font-size: 1.1rem;
+        width: 38px;
       }
       .fish-img-cell {
         width: 85px;
@@ -462,7 +468,7 @@
   </footer>
 
   <script>
-    // 最新釣果データ（小数点以下の数値を整数表記に変更）
+    // 最新釣果データ
     var rankingData = [
       { rank: 1, length: "64cm", angler: "M.T", date: "2021.02.28", img: "SB01.jpg", altImg: "SB01.JPG" },
       { rank: 2, length: "63cm", angler: "M.T", date: "2026.03.20", img: "SB02.jpg", altImg: "SB02.JPG" },
