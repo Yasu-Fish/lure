@@ -164,6 +164,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
+      cursor: pointer;
     }
     .podium-img-wrapper img {
       width: 100%;
@@ -171,6 +172,10 @@
       object-fit: contain;
       object-position: center;
       display: block;
+      transition: transform 0.2s ease;
+    }
+    .podium-img-wrapper:hover img {
+      transform: scale(1.05);
     }
     .podium-img-fallback {
       display: none;
@@ -248,6 +253,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
+      cursor: pointer;
     }
     .fish-thumb-wrapper img {
       width: 100%;
@@ -255,6 +261,10 @@
       object-fit: contain;
       object-position: center;
       display: block;
+      transition: transform 0.2s ease;
+    }
+    .fish-thumb-wrapper:hover img {
+      transform: scale(1.08);
     }
     .thumb-fallback {
       display: none;
@@ -304,6 +314,70 @@
       .length-cell {
         font-size: 0.9rem;
       }
+    }
+
+    /* 画像拡大モーダル (Popup) */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.85);
+      backdrop-filter: blur(8px);
+      z-index: 2000;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+    .modal-overlay.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    .modal-content-box {
+      position: relative;
+      max-width: 90vw;
+      max-height: 85vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .modal-img {
+      max-width: 100%;
+      max-height: 75vh;
+      object-fit: contain;
+      border-radius: 12px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    .modal-caption {
+      margin-top: 14px;
+      font-size: 1rem;
+      font-weight: 700;
+      color: #38bdf8;
+      text-align: center;
+      letter-spacing: 1px;
+    }
+    .modal-close-btn {
+      position: absolute;
+      top: -40px;
+      right: -10px;
+      background: transparent;
+      border: none;
+      color: #fff;
+      font-size: 2rem;
+      cursor: pointer;
+      line-height: 1;
+      opacity: 0.8;
+      transition: opacity 0.2s ease, transform 0.2s ease;
+    }
+    .modal-close-btn:hover {
+      opacity: 1;
+      transform: scale(1.1);
     }
 
     /* フッター */
@@ -373,13 +447,22 @@
 
   </div>
 
+  <!-- 画像拡大モーダル -->
+  <div class="modal-overlay" id="image-modal" onclick="closeModal(event)">
+    <div class="modal-content-box">
+      <button class="modal-close-btn" onclick="closeModalDirect()">&times;</button>
+      <img id="modal-img" class="modal-img" src="" alt="Enlarged Fish Image">
+      <div id="modal-caption" class="modal-caption"></div>
+    </div>
+  </div>
+
   <footer>
     <img src="logo1.jpg" alt="BOTTOM FIELD LAB Logo" class="footer-logo" onerror="this.src='logo.jpg'; this.onerror=null;">
     <div>&copy; Bottom Field Lab. All Rights Reserved.</div>
   </footer>
 
   <script>
-    // 最新釣果データ（SB01.jpg〜SB10.jpgを自動対応）
+    // 最新釣果データ
     var rankingData = [
       { rank: 1, length: "64.0cm", angler: "M.T", date: "2021.02.28", img: "SB01.jpg", altImg: "SB01.JPG" },
       { rank: 2, length: "63.0cm", angler: "M.T", date: "2026.03.20", img: "SB02.jpg", altImg: "SB02.JPG" },
@@ -392,6 +475,26 @@
       { rank: 9, length: "45.0cm", angler: "Y.I", date: "2020.11.08", img: "SB09.jpg", altImg: "SB09.JPG" },
       { rank: 10, length: "42.0cm", angler: "M.T", date: "2026.05.02", img: "SB10.jpg", altImg: "SB10.JPG" }
     ];
+
+    function openModal(imgSrc, captionText) {
+      var modal = document.getElementById('image-modal');
+      var modalImg = document.getElementById('modal-img');
+      var modalCaption = document.getElementById('modal-caption');
+
+      modalImg.src = imgSrc;
+      modalCaption.innerText = captionText;
+      modal.classList.add('active');
+    }
+
+    function closeModal(evt) {
+      if (evt.target.classList.contains('modal-overlay')) {
+        document.getElementById('image-modal').classList.remove('active');
+      }
+    }
+
+    function closeModalDirect() {
+      document.getElementById('image-modal').classList.remove('active');
+    }
 
     function renderRanking() {
       // 表彰台 (Top 3) の生成
@@ -406,6 +509,7 @@
         var card = document.createElement('div');
         card.className = 'podium-card ' + rankClasses[idx];
 
+        var caption = item.length + ' / ' + item.angler + ' (' + item.date + ')';
         var imgTag = item.img 
           ? '<img src="' + item.img + '" alt="' + item.length + '" onerror="this.onerror=null; if(\'' + item.altImg + '\'){this.src=\'' + item.altImg + '\';}else{this.style.display=\'none\'; this.nextElementSibling.style.display=\'block\';}">' +
             '<div class="podium-img-fallback">NO IMAGE</div>'
@@ -413,7 +517,7 @@
 
         card.innerHTML = 
           '<div class="badge">' + rankBadges[idx] + '</div>' +
-          '<div class="podium-img-wrapper">' + imgTag + '</div>' +
+          '<div class="podium-img-wrapper" onclick="openModal(\'' + item.img + '\', \'' + caption + '\')">' + imgTag + '</div>' +
           '<div class="podium-length">' + item.length + '</div>' +
           '<div class="podium-angler">' + item.angler + '</div>' +
           '<div class="podium-date">' + item.date + '</div>';
@@ -428,6 +532,7 @@
       rankingData.forEach(function(item, index) {
         var tr = document.createElement('tr');
 
+        var caption = '#' + (index + 1) + ' ' + item.length + ' / ' + item.angler + ' (' + item.date + ')';
         var thumbTag = item.img 
           ? '<img src="' + item.img + '" alt="' + item.length + '" onerror="this.onerror=null; if(\'' + item.altImg + '\'){this.src=\'' + item.altImg + '\';}else{this.style.display=\'none\'; this.nextElementSibling.style.display=\'block\';}">' +
             '<div class="thumb-fallback">NO IMAGE</div>'
@@ -435,7 +540,7 @@
 
         tr.innerHTML = 
           '<td class="rank-num">' + (index + 1) + '</td>' +
-          '<td class="fish-img-cell"><div class="fish-thumb-wrapper">' + thumbTag + '</div></td>' +
+          '<td class="fish-img-cell"><div class="fish-thumb-wrapper" onclick="openModal(\'' + item.img + '\', \'' + caption + '\')">' + thumbTag + '</div></td>' +
           '<td class="length-cell">' + item.length + '</td>' +
           '<td class="angler-cell">' + item.angler + '</td>' +
           '<td class="date-cell">' + item.date + '</td>';
