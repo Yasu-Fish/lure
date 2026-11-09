@@ -120,7 +120,7 @@
       transition: opacity 0.3s ease;
     }
 
-    /* 拡大画像の上に表示されるルアー名ラベル（PC表示調整） */
+    /* 拡大画像の上に表示されるルアー名ラベル */
     .hero-lure-title {
       position: absolute;
       top: 80px;
@@ -142,7 +142,6 @@
       opacity: 0;
     }
 
-    /* スマホ画面向けの表示位置調整 */
     @media (max-width: 768px) {
       .hero-lure-title {
         font-size: 1.5rem;
@@ -251,17 +250,6 @@
       box-shadow: 0 4px 15px rgba(168, 85, 247, 0.3);
     }
 
-    /* Coming Soon 専用のカードスタイル（クリック不可） */
-    .color-card.disabled-card {
-      cursor: not-allowed;
-      opacity: 0.85;
-    }
-    .color-card.disabled-card:hover {
-      transform: none;
-      border-color: rgba(255, 255, 255, 0.08);
-      box-shadow: none;
-    }
-
     .color-swatch {
       width: 100%;
       height: 120px;
@@ -274,7 +262,6 @@
       background-color: #0b0c10;
       position: relative;
     }
-    /* 通常 AMY / LUKIA */
     .color-swatch img {
       width: 100%;
       height: 100%;
@@ -283,42 +270,11 @@
       border-radius: 8px;
       display: block;
     }
-    /* AMY Slim 専用 */
     .color-swatch img.slim-img {
       width: 100%;
       height: 100%;
       object-fit: contain;
       object-position: center;
-    }
-
-    /* Coming Soon 専用のおしゃれなスウォッチデザイン */
-    .coming-soon-box {
-      width: 100%;
-      height: 100%;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      background: linear-gradient(135deg, rgba(255,255,255,0.06), rgba(168,85,247,0.15));
-      border: 1px dashed rgba(255, 255, 255, 0.25);
-      border-radius: 8px;
-      color: #e2e8f0;
-      font-weight: 700;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      box-shadow: inset 0 0 15px rgba(0,0,0,0.5);
-    }
-    .coming-soon-box .cs-text {
-      font-size: 0.85rem;
-      background: linear-gradient(135deg, #ffffff, #a855f7);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      margin-bottom: 2px;
-    }
-    .coming-soon-box .cs-sub {
-      font-size: 0.65rem;
-      color: #94a3b8;
-      letter-spacing: 1px;
     }
 
     .color-fallback-box {
@@ -362,10 +318,10 @@
       opacity: 1;
     }
 
-    /* SNS アイコンリンクスタイル */
+    /* SNS & Ranking アイコンリンクスタイル */
     .social-links {
       display: flex;
-      gap: 24px;
+      gap: 20px;
       align-items: center;
       margin-top: 4px;
     }
@@ -387,15 +343,23 @@
       color: #e1306c;
       transform: translateY(-3px) scale(1.08);
     }
-    .social-icon.youtube:hover {
-      color: #ff0000;
-      transform: translateY(-3px) scale(1.08);
-    }
     .social-icon.x-twitter:hover {
       color: #ffffff;
       transform: translateY(-3px) scale(1.08);
     }
+    .social-icon.youtube:hover {
+      color: #ff0000;
+      transform: translateY(-3px) scale(1.08);
+    }
+    .social-icon.ranking:hover {
+      color: #a855f7;
+      transform: translateY(-3px) scale(1.08);
+      filter: drop-shadow(0 0 10px rgba(168, 85, 247, 0.8));
+    }
     @media (max-width: 768px) {
+      .social-links {
+        gap: 16px;
+      }
       .social-icon {
         width: 30px;
         height: 30px;
@@ -407,7 +371,6 @@
 
   <!-- ヘッダー -->
   <header>
-    <!-- ヘッダー左側：Lure Information -->
     <a href="#" class="header-title-link" onclick="window.scrollTo({top:0, behavior:'smooth'}); return false;">
       <span class="header-title">Lure Information</span>
     </a>
@@ -420,7 +383,6 @@
 
   <!-- メイン 全画面ポスターヒーロー -->
   <div class="hero-container main-hero" id="hero-section">
-    <!-- ポスター画像の上に重なるルアー名表記 -->
     <div id="hero-lure-title" class="hero-lure-title"></div>
 
     <img id="hero-img" class="hero-bg" src="LUKIA_3.jpg" alt="Lure Poster" onerror="handleMainImgError(this);">
@@ -438,8 +400,6 @@
 
   <!-- コンテンツ詳細 (AMY/LUKIA共通) -->
   <div class="container">
-    
-    <!-- メイン スペック紹介 -->
     <h2 class="section-title" id="main-spec-title">SPECIFICATION</h2>
     <div class="spec-card">
       <div class="spec-row">
@@ -460,12 +420,10 @@
       </div>
     </div>
 
-    <!-- メイン カラーバリエーション -->
     <h2 class="section-title" id="main-color-title">COLOR VARIATION</h2>
     <div class="color-grid" id="color-grid">
       <!-- JavaScriptで動的生成 -->
     </div>
-
   </div>
 
   <!-- LUKIA 70用 セクション -->
@@ -506,8 +464,6 @@
 
   <!-- AMY Slim用 セクション -->
   <div id="amy-slim-wrapper" style="display: none;">
-    
-    <!-- AMY Slim 全画面ポスターヒーロー -->
     <div class="hero-container sub-hero">
       <img src="AMY_Slim.jpg" alt="AMY Slim Poster" class="hero-bg" onerror="this.src='AMY_Slim.JPG'; this.onerror=null;">
     </div>
@@ -567,11 +523,10 @@
         <!-- JavaScriptで動的生成 -->
       </div>
     </div>
-
   </div>
 
   <footer>
-    <!-- Instagram, YouTube & X (Twitter) リンク -->
+    <!-- Instagram, X, YouTube & ランキング アイコンリンク -->
     <div class="social-links">
       <a href="https://www.instagram.com/bottomfieldlab/" target="_blank" rel="noopener noreferrer" class="social-icon instagram" aria-label="Instagram">
         <svg viewBox="0 0 24 24">
@@ -588,12 +543,17 @@
           <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
         </svg>
       </a>
+      <!-- トロフィーアイコン（ranking.html へのリンク） -->
+      <a href="ranking.html" class="social-icon ranking" aria-label="Seabass Ranking" title="Seabass Ranking">
+        <svg viewBox="0 0 24 24">
+          <path d="M19 5h-2V3H7v2H5c-1.1 0-2 .9-2 2v3c0 2.44 1.72 4.44 4.05 4.88.59 2.05 2.19 3.63 4.25 3.99V19H8v2h8v-2h-3.3c2.06-.36 3.66-1.94 4.25-3.99C19.28 14.44 21 12.44 21 10V7c0-1.1-.9-2-2-2zM5 10V7h2v3c0 1.34-.84 2.45-2 2.8v-.8zM19 10c-1.16-.35-2-1.46-2-2.8V7h2v3z"/>
+        </svg>
+      </a>
     </div>
 
     <!-- ブランドロゴ -->
     <img src="logo1.jpg" alt="BOTTOM FIELD LAB Logo" class="footer-logo" onerror="this.src='logo.jpg'; this.onerror=null;">
 
-    <!-- 著作権表記 -->
     <div>&copy; Bottom Field Lab. All Rights Reserved.</div>
   </footer>
 
@@ -679,7 +639,6 @@
       document.getElementById('fallback-title').style.color = data.fallbackColor;
       document.getElementById('fallback-catch').innerText = data.catch;
 
-      /* 見出し表記の切り替え */
       var specTitleText = (brandKey === 'lukia') ? 'LUKIA 60 SPECIFICATION' : (brandKey === 'amy' ? 'AMY 72 SPECIFICATION' : data.title + ' SPECIFICATION');
       var colorTitleText = (brandKey === 'lukia') ? 'LUKIA 60 COLOR VARIATION' : (brandKey === 'amy' ? 'AMY 72 COLOR VARIATION' : data.title + ' COLOR VARIATION');
 
@@ -712,7 +671,6 @@
         })(data.colors[j]);
       }
 
-      // LUKIA 70 セクション表示制御
       var lukia70Wrapper = document.getElementById('lukia-70-wrapper');
       if (brandKey === 'lukia') {
         lukia70Wrapper.style.display = 'block';
@@ -720,12 +678,10 @@
         lukia70Wrapper.style.display = 'none';
       }
 
-      // AMY Slim セクション制御
       var slimWrapper = document.getElementById('amy-slim-wrapper');
       if (brandKey === 'amy' && data.slimColors) {
         slimWrapper.style.display = 'block';
         
-        // AMY 95 Slim カラー生成
         var slimGrid = document.getElementById('amy-slim-color-grid');
         slimGrid.innerHTML = '';
 
@@ -747,7 +703,6 @@
           })(data.slimColors[k]);
         }
 
-        // AMY 110 Slim カラー生成
         var slim110Grid = document.getElementById('amy-110-slim-color-grid');
         slim110Grid.innerHTML = '';
 
@@ -777,7 +732,6 @@
 
     function selectColor(imageSrc, lureLabel) {
       changeMainImage(imageSrc, lureLabel);
-      
       document.documentElement.scrollTop = 0;
       document.body.scrollTop = 0;
       window.scrollTo({ top: 0, behavior: 'smooth' });
