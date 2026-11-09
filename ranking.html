@@ -185,7 +185,7 @@
     }
 
     .podium-length {
-      font-size: 1.3rem;
+      font-size: 1.45rem;
       font-weight: 800;
       color: #38bdf8;
       margin: 2px 0;
@@ -275,7 +275,7 @@
     .length-cell {
       font-weight: 800;
       color: #38bdf8;
-      font-size: 1rem;
+      font-size: 1.15rem;
     }
     .angler-cell {
       font-weight: 600;
@@ -295,7 +295,7 @@
         height: 70px;
       }
       .podium-length {
-        font-size: 1.05rem;
+        font-size: 1.15rem;
       }
       .podium-angler {
         font-size: 0.75rem;
@@ -312,11 +312,11 @@
         height: 46px;
       }
       .length-cell {
-        font-size: 0.9rem;
+        font-size: 1.05rem;
       }
     }
 
-    /* 画像拡大モーダル (Popup) */
+    /* 画像拡大モーダル */
     .modal-overlay {
       position: fixed;
       top: 0;
@@ -462,18 +462,18 @@
   </footer>
 
   <script>
-    // 最新釣果データ
+    // 最新釣果データ（小数点以下の数値を整数表記に変更）
     var rankingData = [
-      { rank: 1, length: "64.0cm", angler: "M.T", date: "2021.02.28", img: "SB01.jpg", altImg: "SB01.JPG" },
-      { rank: 2, length: "63.0cm", angler: "M.T", date: "2026.03.20", img: "SB02.jpg", altImg: "SB02.JPG" },
-      { rank: 3, length: "55.0cm", angler: "M.T", date: "2026.10.11", img: "SB03.jpg", altImg: "SB03.JPG" },
-      { rank: 4, length: "55.0cm", angler: "M.T", date: "2026.05.16", img: "SB04.jpg", altImg: "SB04.JPG" },
-      { rank: 5, length: "55.0cm", angler: "M.T", date: "2026.04.18", img: "SB05.jpg", altImg: "SB05.JPG" },
-      { rank: 6, length: "54.0cm", angler: "Y.I", date: "2021.03.13", img: "SB06.jpg", altImg: "SB06.JPG" },
-      { rank: 7, length: "53.0cm", angler: "M.T", date: "2026.04.18", img: "SB07.jpg", altImg: "SB07.JPG" },
-      { rank: 8, length: "46.0cm", angler: "M.T", date: "2026.04.18", img: "SB08.jpg", altImg: "SB08.JPG" },
-      { rank: 9, length: "45.0cm", angler: "Y.I", date: "2020.11.08", img: "SB09.jpg", altImg: "SB09.JPG" },
-      { rank: 10, length: "42.0cm", angler: "M.T", date: "2026.05.02", img: "SB10.jpg", altImg: "SB10.JPG" }
+      { rank: 1, length: "64cm", angler: "M.T", date: "2021.02.28", img: "SB01.jpg", altImg: "SB01.JPG" },
+      { rank: 2, length: "63cm", angler: "M.T", date: "2026.03.20", img: "SB02.jpg", altImg: "SB02.JPG" },
+      { rank: 3, length: "55cm", angler: "M.T", date: "2026.10.11", img: "SB03.jpg", altImg: "SB03.JPG" },
+      { rank: 4, length: "55cm", angler: "M.T", date: "2026.05.16", img: "SB04.jpg", altImg: "SB04.JPG" },
+      { rank: 5, length: "55cm", angler: "M.T", date: "2026.04.18", img: "SB05.jpg", altImg: "SB05.JPG" },
+      { rank: 6, length: "54cm", angler: "Y.I", date: "2021.03.13", img: "SB06.jpg", altImg: "SB06.JPG" },
+      { rank: 7, length: "53cm", angler: "M.T", date: "2026.04.18", img: "SB07.jpg", altImg: "SB07.JPG" },
+      { rank: 8, length: "46cm", angler: "M.T", date: "2026.04.18", img: "SB08.jpg", altImg: "SB08.JPG" },
+      { rank: 9, length: "45cm", angler: "Y.I", date: "2020.11.08", img: "SB09.jpg", altImg: "SB09.JPG" },
+      { rank: 10, length: "42cm", angler: "M.T", date: "2026.05.02", img: "SB10.jpg", altImg: "SB10.JPG" }
     ];
 
     function openModal(imgSrc, captionText) {
