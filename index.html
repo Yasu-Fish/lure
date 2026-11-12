@@ -571,10 +571,11 @@
         fallbackBg: 'radial-gradient(circle, #2e1065 0%, #0b0c10 100%)',
         fallbackColor: '#e9d5ff',
         colors: [
-          { name: 'アーバングリーン', img: 'AMY_color1.jpg', detailImg: 'AMY_color1.jpg', bg: 'linear-gradient(135deg, #22c55e, #15803d)' },
-          { name: 'ブラックプラム', img: 'AMY_color2.jpg', detailImg: 'AMY_color2.jpg', bg: 'linear-gradient(135deg, #18181b, #3f3f46)' },
-          { name: 'クリアパープル', img: 'AMY_color3.jpg', detailImg: 'AMY_color3.jpg', bg: 'linear-gradient(135deg, #a855f7, #6b21a8)' },
-          { name: 'レッドアイグロー', img: 'AMY_color4.jpg', detailImg: 'AMY_color4_large.jpg', bg: 'linear-gradient(135deg, #ef4444, #991b1b)' }
+          { name: 'アーバングリーン', img: 'AMY_color1.jpg', altImg: 'AMY_color1.JPG', detailImg: 'AMY_color1.jpg', bg: 'linear-gradient(135deg, #22c55e, #15803d)' },
+          { name: 'ブラックプラム', img: 'AMY_color2.jpg', altImg: 'AMY_color2.JPG', detailImg: 'AMY_color2.jpg', bg: 'linear-gradient(135deg, #18181b, #3f3f46)' },
+          { name: 'クリアパープル', img: 'AMY_color3.jpg', altImg: 'AMY_color3.JPG', detailImg: 'AMY_color3.jpg', bg: 'linear-gradient(135deg, #a855f7, #6b21a8)' },
+          { name: 'レッドアイグロー', img: 'AMY_color4.jpg', altImg: 'AMY_color4.JPG', detailImg: 'AMY_color4_large.jpg', bg: 'linear-gradient(135deg, #ef4444, #991b1b)' },
+          { name: 'ライムヘッドイエロー', img: 'AMY_color5.jpg', altImg: 'AMY_color5.JPG', detailImg: 'AMY_color5.jpg', bg: 'linear-gradient(135deg, #a3e635, #eab308)' }
         ],
         slimColors: [
           { name: 'アーバングリーン', img: 'AMY_Slim_c1.JPG', altImg: 'AMY_Slim_c1.jpg', bg: 'linear-gradient(135deg, #22c55e, #15803d)' },
@@ -660,9 +661,11 @@
           var targetImage = col.detailImg || col.img;
           card.onclick = function() { selectColor(targetImage, data.displayTitle); };
           
+          var altImgAttr = col.altImg ? 'if(\'' + col.altImg + '\'){this.src=\'' + col.altImg + '\';}else{' : '{';
+          
           card.innerHTML = 
             '<div class="color-swatch">' +
-              '<img src="' + col.img + '" alt="' + col.name + '" onerror="this.style.display=\'none\'; this.nextElementSibling.style.display=\'flex\';">' +
+              '<img src="' + col.img + '" alt="' + col.name + '" onerror="this.onerror=null; ' + altImgAttr + 'this.style.display=\'none\'; this.nextElementSibling.style.display=\'flex\';}">' +
               '<div class="color-fallback-box" style="background:' + col.bg + ';">' + col.name + '</div>' +
             '</div>' +
             '<div class="color-name">' + col.name + '</div>';
